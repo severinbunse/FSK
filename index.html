@@ -216,7 +216,8 @@
     const logoEnd = document.querySelector('.logo-end');
     const stopY = -logoEnd.offsetTop;
 
-    let y = window.innerHeight;
+    const firstItem = el.querySelector('li');
+    let y = window.innerHeight - firstItem.offsetTop;
     let lastTime = null;
     let paused = false;
     let manualDelta = 0;
