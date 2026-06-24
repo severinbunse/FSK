@@ -6,9 +6,14 @@
     <title>FSK</title>
 <style type="text/css">
 
+    @font-face {
+        font-family: 'NimbusSans';
+        src: url('fonts/nimbus_sans_becker_l.woff2') format('woff2');
+    }
+
     html, body {
         margin: 0;
-        font-family: arial;
+        font-family: 'NimbusSans', arial, sans-serif;
         font-size: 20px;
         color: white;
         background: black;
@@ -27,6 +32,9 @@
     }
 
     @media (min-width: 768px) {
+        html, body {
+            font-size: 28px;
+        }
         .credits ul {
             max-width: 800px;
             margin: 0 auto;
