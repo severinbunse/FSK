@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSK</title>
+<style type="text/css">
+
+    html, body {
+        margin: 0;
+        font-family: arial;
+        font-size: 20px;
+        color: white;
+        background: black;
+        overflow: hidden;
+    }
+
+    .credits {
+        position: fixed;
+        width: 100%;
+        padding: 0 10px 40px 10px;
+        box-sizing: border-box;
+        text-shadow: none;
+    }
+
+    .week-label {
+        margin-top: 2em;
+        padding-top: 1em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .day-header {
+        margin-top: 1em;
+        padding-top: 1em;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .film-entry {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .film-entry .time {
+        flex-shrink: 0;
+    }
+
+    .film-entry .dots {
+        flex: 1;
+        overflow: hidden;
+        margin: 0 4px;
+    }
+
+    .film-entry .dots::after {
+        content: '..........................................................................';
+    }
+
+    .film-entry .title-text {
+        flex-shrink: 0;
+        text-align: left;
+    }
+
+.logo-end {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-end img {
+        height: 40vh;
+        width: auto;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="credits">
+    <ul style="list-style:none; padding:0; margin:0;">
+
+        <li class="week-label">Diese Woche</li>
+
+        <li class="day-header">Do. 28.5</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Fr. 29.5</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Sa. 30.5</li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">13:00</span></li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="dots"></span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="dots"></span><span class="time">15:30</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="dots"></span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">So. 31.5</li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="dots"></span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">13:45</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="dots"></span><span class="time">16:15</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="dots"></span><span class="time">18:15</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Mo. 1.6</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Di. 2.6</li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Ich Verstehe Ihren Unmut</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Mi. 3.6</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="week-label">Nächste Woche</li>
+
+        <li class="day-header">Do. 4.6</li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Fr. 5.6</li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Sa. 6.6</li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">13:00</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="dots"></span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="dots"></span><span class="time">15:30</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">So. 7.6</li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="dots"></span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">13:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="dots"></span><span class="time">16:15</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">18:15</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="dots"></span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Mo. 8.6</li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Di. 9.6</li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Ich Verstehe Ihren Unmut</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="day-header">Mi. 10.6</li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="dots"></span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="dots"></span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="dots"></span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="dots"></span><span class="time">20:30</span></li>
+
+        <li class="logo-end"><img src="images/logo_vertical.png" alt=""></li>
+
+    </ul>
+</div>
+
+<script>
+    const el = document.querySelector('.credits');
+    const speed = 50; // px per second
+
+    let y = window.innerHeight;
+    let lastTime = null;
+    let paused = false;
+    let manualDelta = 0;
+
+    function animate(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const dt = (timestamp - lastTime) / 1000;
+        lastTime = timestamp;
+        if (!paused) {
+            y -= speed * dt;
+        }
+        y -= manualDelta;
+        manualDelta = 0;
+        y = Math.min(y, window.innerHeight);
+        el.style.transform = `translateY(${y}px)`;
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    window.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (!paused && y >= window.innerHeight / 2) return;
+        paused = true;
+        manualDelta += e.deltaY;
+    }, { passive: false });
+
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    });
+    window.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (!paused && y >= window.innerHeight / 2) return;
+        paused = true;
+        const dy = touchStartY - e.touches[0].clientY;
+        touchStartY = e.touches[0].clientY;
+        manualDelta += dy;
+    }, { passive: false });
+</script>
+
+</body>
+</html>
