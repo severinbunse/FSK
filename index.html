@@ -18,9 +18,20 @@
     .credits {
         position: fixed;
         width: 100%;
-        padding: 0 10px 40px 10px;
-        box-sizing: border-box;
         text-shadow: none;
+    }
+
+    .credits ul {
+        margin: 0;
+        padding: 0 10px 40px 10px;
+    }
+
+    @media (min-width: 768px) {
+        .credits ul {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+        }
     }
 
     .week-label {
@@ -38,19 +49,27 @@
     }
 
     .film-entry {
-        text-align: center;
-    }
-
-    .film-entry .dots {
-        display: none;
-    }
-
-    .film-entry .title-text {
-        display: inline;
+        display: flex;
+        align-items: baseline;
     }
 
     .film-entry .time {
-        margin-left: 0.5em;
+        flex-shrink: 0;
+    }
+
+    .film-entry .dots {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0 4px;
+    }
+
+    .film-entry .dots::after {
+        content: '........................................................................................................................................................................';
+    }
+
+    .film-entry .title-text {
+        flex-shrink: 0;
     }
 
 .logo-end {
@@ -70,7 +89,7 @@
 <body>
 
 <div class="credits">
-    <ul style="list-style:none; padding:0; margin:0;">
+    <ul style="list-style:none;">
 
         <li class="week-label">Diese Woche</li>
 
