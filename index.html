@@ -204,6 +204,10 @@
     const el = document.querySelector('.credits');
     const speed = 50; // px per second
 
+    // Stop when the logo is vertically centered: logo-end top reaches viewport top
+    const logoEnd = document.querySelector('.logo-end');
+    const stopY = -logoEnd.offsetTop;
+
     let y = window.innerHeight;
     let lastTime = null;
     let paused = false;
@@ -215,10 +219,15 @@
         lastTime = timestamp;
         if (!paused) {
             y -= speed * dt;
+            if (y <= stopY) {
+                y = stopY;
+                paused = true;
+            }
         }
         y -= manualDelta;
         manualDelta = 0;
         y = Math.min(y, window.innerHeight);
+        y = Math.max(y, stopY);
         el.style.transform = `translateY(${y}px)`;
         requestAnimationFrame(animate);
     }
