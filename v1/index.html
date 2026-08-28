@@ -11,7 +11,9 @@
         margin: 0;
         height: 100%;
         height: 100dvh;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        overscroll-behavior-y: none;
         background: black;
         font-family: "minion-pro", serif;
         font-size: 28px;
@@ -155,6 +157,8 @@
 </head>
 <body>
 
+<div aria-hidden="true" style="position:absolute; top:0; left:0; width:1px; height:calc(100dvh + 8px); pointer-events:none; opacity:0; z-index:-1;"></div>
+
 <div class="home"></div>
 
 <div class="credits">
@@ -277,6 +281,14 @@
 <img class="logo" src="../images/logo_vertical.png" alt="FSK">
 
 <script>
+    function nudgeScroll() {
+        window.scrollTo(0, 2);
+    }
+    nudgeScroll();
+    window.addEventListener('load', nudgeScroll);
+    window.addEventListener('pageshow', nudgeScroll);
+    window.addEventListener('orientationchange', () => setTimeout(nudgeScroll, 50));
+
     const home = document.querySelector('.home');
     const logo = document.querySelector('.logo');
     const spielzeitenBtn = document.querySelector('.spielzeiten-btn');
