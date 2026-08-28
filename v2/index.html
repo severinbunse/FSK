@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSK</title>
+    <link rel="stylesheet" href="https://use.typekit.net/foe3qzx.css">
+<style type="text/css">
+
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: black;
+        font-family: "minion-pro", serif;
+        font-size: 28px;
+        color: white;
+    }
+
+    @media (min-width: 768px) {
+        html, body {
+            font-size: 37px; /* 28pt: a 7:8 ratio to Spielzeiten's 32pt */
+        }
+    }
+
+    /* --- Home background + logo, sit above the credits list --- */
+
+    .home {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-image: url('../images/thenorth.webp');
+        background-size: auto 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .home.fading {
+        opacity: 0;
+    }
+
+    .logo {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+        height: 44vh;
+        width: auto;
+        margin: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .logo.fading {
+        opacity: 0;
+    }
+
+    /* --- Menu button --- */
+
+    .menu-btn {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 5;
+        width: 100px;
+        height: 100px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        font-family: Arial, sans-serif;
+        font-size: 40pt;
+        line-height: 1;
+        color: white;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.7);
+    }
+
+    .menu-btn::before {
+        content: '\2261';
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .menu-btn.open::before {
+        content: '\00d7';
+        transform: rotate(90deg);
+    }
+
+    .menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .menu-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.open .menu-nav {
+        opacity: 1;
+        transition-delay: 0.2s;
+    }
+
+    .menu-link {
+        font-family: "minion-pro-condensed", serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 32pt;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* --- Credits / schedule list --- */
+
+    .credits {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        text-shadow: none;
+    }
+
+    .credits ul {
+        margin: 0;
+        padding: 0 10px 40px 10px;
+    }
+
+    @media (min-width: 768px) {
+        .credits ul {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+        }
+    }
+
+    .spielzeiten-entry {
+        text-align: center;
+    }
+
+    .spielzeiten-btn {
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        font-family: "minion-pro-condensed", serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 32pt;
+        color: white;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.7);
+    }
+
+    .day-header {
+        margin-top: 1.5em;
+        padding-top: 1em;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .film-entry {
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .film-entry .title-text {
+        font-style: italic;
+    }
+
+    .film-entry .time {
+        font-style: normal;
+    }
+
+    .film-entry .time::before {
+        content: "\00b7";
+        margin: 0 0.25em;
+    }
+
+    .logo-end {
+        height: 100vh;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="home"></div>
+
+<div class="credits">
+    <ul style="list-style:none;">
+
+        <li class="spielzeiten-entry"><button class="spielzeiten-btn">Spielzeiten</button></li>
+
+        <li class="day-header">Donnerstag 28/5</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Freitag 29/5</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Samstag 30/5</li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">13:00</span></li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="time">15:30</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Sonntag 31/5</li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">13:45</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="time">16:15</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="time">18:15</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Montag 1/6</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Dienstag 2/6</li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Ich Verstehe Ihren Unmut</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Mittwoch 3/6</li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Donnerstag 4/6</li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Freitag 5/6</li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Samstag 6/6</li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">13:00</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="time">15:30</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Sonntag 7/6</li>
+        <li class="film-entry"><span class="title-text">Wolves</span><span class="time">13:15</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">13:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">15:15</span></li>
+        <li class="film-entry"><span class="title-text">Was An Empfindsamkeit Bleibt</span><span class="time">16:15</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">18:15</span></li>
+        <li class="film-entry"><span class="title-text">Wolken Über Lützerath</span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Montag 8/6</li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Dienstag 9/6</li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">17:30</span></li>
+        <li class="film-entry"><span class="title-text">Ich Verstehe Ihren Unmut</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">20:00</span></li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">20:30</span></li>
+
+        <li class="day-header">Mittwoch 10/6</li>
+        <li class="film-entry"><span class="title-text">The North</span><span class="time">17:45</span></li>
+        <li class="film-entry"><span class="title-text">Eagles Of The Republic</span><span class="time">18:00</span></li>
+        <li class="film-entry"><span class="title-text">Mauern Aus Sand</span><span class="time">19:45</span></li>
+        <li class="film-entry"><span class="title-text">Rose</span><span class="time">20:30</span></li>
+
+        <li class="logo-end"></li>
+
+    </ul>
+</div>
+
+<img class="logo" src="../images/logo_vertical.png" alt="FSK">
+
+<button class="menu-btn" aria-label="Menu"></button>
+
+<div class="menu-overlay">
+    <nav class="menu-nav">
+        <a href="#" class="menu-link">Spielzeiten</a>
+        <a href="calendar.html" class="menu-link">Kalender</a>
+        <a href="#" class="menu-link">Search</a>
+        <a href="#" class="menu-link">About</a>
+        <a href="#" class="menu-link">Filme</a>
+        <a href="#" class="menu-link">Schafsuche</a>
+        <a href="#" class="menu-link">Weiteres</a>
+        <a href="#" class="menu-link">Contact</a>
+    </nav>
+</div>
+
+<script>
+    const home = document.querySelector('.home');
+    const logo = document.querySelector('.logo');
+    const spielzeitenBtn = document.querySelector('.spielzeiten-btn');
+    const el = document.querySelector('.credits');
+    const logoEnd = document.querySelector('.logo-end');
+    const firstItem = el.querySelector('li');
+    const speed = 50; // px per second
+
+    const stopY = -logoEnd.offsetTop;
+    const peekMargin = 24; // gap below "Spielzeiten" while it peeks on the home screen
+    let peekY = window.innerHeight - peekMargin - (firstItem.offsetTop + firstItem.offsetHeight);
+
+    let y = peekY;
+    let lastTime = null;
+    let paused = true;
+    let manualDelta = 0;
+    let started = false;
+    let menuOpen = false;
+
+    function animate(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const dt = (timestamp - lastTime) / 1000;
+        lastTime = timestamp;
+        if (!paused) {
+            y -= speed * dt;
+            if (y <= stopY) {
+                y = stopY;
+                paused = true;
+            }
+        }
+        y -= manualDelta;
+        manualDelta = 0;
+        y = Math.min(y, peekY);
+        y = Math.max(y, stopY);
+
+        if (menuOpen || y < peekY - 1) {
+            home.classList.add('fading');
+            logo.classList.add('fading');
+        } else {
+            home.classList.remove('fading');
+            logo.classList.remove('fading');
+        }
+
+        el.style.transform = `translateY(${y}px)`;
+        requestAnimationFrame(animate);
+    }
+
+    el.style.transform = `translateY(${y}px)`;
+    requestAnimationFrame(animate);
+
+    if (document.fonts) {
+        document.fonts.ready.then(() => {
+            if (paused && !started) {
+                peekY = window.innerHeight - peekMargin - (firstItem.offsetTop + firstItem.offsetHeight);
+                y = peekY;
+            }
+        });
+    }
+
+    function start() {
+        if (started) return;
+        started = true;
+        spielzeitenBtn.style.pointerEvents = 'none';
+        home.classList.add('fading');
+        logo.classList.add('fading');
+        paused = false;
+
+        window.addEventListener('wheel', (e) => {
+            if (menuOpen) return;
+            e.preventDefault();
+            if (!paused && y >= window.innerHeight / 2) return;
+            paused = true;
+            manualDelta += e.deltaY;
+        }, { passive: false });
+
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (menuOpen) return;
+            e.preventDefault();
+            if (!paused && y >= window.innerHeight / 2) return;
+            paused = true;
+            const dy = touchStartY - e.touches[0].clientY;
+            touchStartY = e.touches[0].clientY;
+            manualDelta += dy;
+        }, { passive: false });
+    }
+
+    spielzeitenBtn.addEventListener('click', start);
+
+    const menuBtn = document.querySelector('.menu-btn');
+    const menuOverlay = document.querySelector('.menu-overlay');
+
+    menuBtn.addEventListener('click', () => {
+        if (menuOpen) {
+            window.location.href = 'index.html';
+            return;
+        }
+        menuOpen = true;
+        menuBtn.classList.add('open');
+        menuOverlay.classList.add('open');
+    });
+
+    document.querySelectorAll('.menu-link').forEach((link) => {
+        link.addEventListener('click', (e) => {
+            if (link.getAttribute('href') === '#') e.preventDefault();
+            menuOpen = false;
+            menuBtn.classList.remove('open');
+            menuOverlay.classList.remove('open');
+        });
+    });
+</script>
+
+</body>
+</html>

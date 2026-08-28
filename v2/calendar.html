@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSK — Kalender</title>
+    <link rel="stylesheet" href="https://use.typekit.net/foe3qzx.css">
+<style type="text/css">
+
+    html, body {
+        margin: 0;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background: black;
+        font-family: "minion-pro", serif;
+        font-size: 28px;
+        color: white;
+    }
+
+    @media (min-width: 768px) {
+        html, body {
+            font-size: 37px;
+        }
+    }
+
+    /* --- Top-right nav icons --- */
+
+    .close-btn,
+    .arrow-btn {
+        position: fixed;
+        top: 12px;
+        z-index: 5;
+        width: 100px;
+        height: 100px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        font-family: Arial, sans-serif;
+        font-size: 40pt;
+        line-height: 1;
+        color: white;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.7);
+    }
+
+    .close-btn {
+        right: 12px;
+    }
+
+    .close-btn::before {
+        content: '\00d7';
+    }
+
+    .arrow-btn {
+        left: 12px;
+    }
+
+    .arrow-btn::before {
+        content: '\2190';
+    }
+
+    .menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .menu-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.open .menu-nav {
+        opacity: 1;
+        transition-delay: 0.2s;
+    }
+
+    .menu-link {
+        font-family: "minion-pro-condensed", serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 32pt;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* --- Calendar --- */
+
+    .calendar-page {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 45px 24px 24px;
+        box-sizing: border-box;
+    }
+
+    @media (min-width: 768px) {
+        .calendar-page {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    }
+
+    .cal-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 100%;
+    }
+
+    .cal-weekdays span {
+        text-align: center;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding-bottom: 0.3em;
+    }
+
+    #months-container {
+        width: 100%;
+    }
+
+    .month-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 2em;
+    }
+
+    .cal-title {
+        font-family: "minion-pro-condensed", serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.7);
+        text-align: center;
+        margin-bottom: 0.5em;
+    }
+
+    .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 100%;
+    }
+
+    .cal-day {
+        text-align: center;
+        padding: 0.35em 0;
+    }
+
+    .cal-day.has-screening {
+        font-style: italic;
+        cursor: pointer;
+    }
+
+    .cal-day.today {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+
+</style>
+</head>
+<body>
+
+<button class="arrow-btn" aria-label="Menu"></button>
+
+<button class="close-btn" aria-label="Home"></button>
+
+<div class="menu-overlay">
+    <nav class="menu-nav">
+        <a href="index.html" class="menu-link">Spielzeiten</a>
+        <a href="#" class="menu-link">Kalender</a>
+        <a href="#" class="menu-link">Search</a>
+        <a href="#" class="menu-link">About</a>
+        <a href="#" class="menu-link">Filme</a>
+        <a href="#" class="menu-link">Schafsuche</a>
+        <a href="#" class="menu-link">Weiteres</a>
+        <a href="#" class="menu-link">Contact</a>
+    </nav>
+</div>
+
+<div class="calendar-page">
+    <div id="months-container"></div>
+</div>
+
+<script>
+    const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
+    // Days currently in the schedule (Donnerstag 28/5 – Mittwoch 10/6)
+    const screeningDays = new Set([
+        '2026-4-28', '2026-4-29', '2026-4-30', '2026-4-31',
+        '2026-5-1', '2026-5-2', '2026-5-3', '2026-5-4', '2026-5-5',
+        '2026-5-6', '2026-5-7', '2026-5-8', '2026-5-9', '2026-5-10',
+    ]);
+
+    const today = new Date();
+    const monthsContainer = document.getElementById('months-container');
+
+    // Full year, stacked
+    const calYearAll = 2026;
+    const months = Array.from({ length: 12 }, (_, i) => ({ year: calYearAll, month: i }));
+
+    function buildMonth(calYear, calMonth) {
+        const block = document.createElement('div');
+        block.className = 'month-block';
+
+        const title = document.createElement('div');
+        title.className = 'cal-title';
+        title.textContent = monthNames[calMonth] + ' ' + calYear;
+        block.appendChild(title);
+
+        const weekdays = document.createElement('div');
+        weekdays.className = 'cal-weekdays';
+        ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].forEach((d) => {
+            const span = document.createElement('span');
+            span.textContent = d;
+            weekdays.appendChild(span);
+        });
+        block.appendChild(weekdays);
+
+        const grid = document.createElement('div');
+        grid.className = 'cal-grid';
+
+        const firstDay = (new Date(calYear, calMonth, 1).getDay() + 6) % 7;
+        for (let i = 0; i < firstDay; i++) {
+            grid.appendChild(document.createElement('div'));
+        }
+
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        for (let day = 1; day <= daysInMonth; day++) {
+            const key = `${calYear}-${calMonth}-${day}`;
+            const isToday = calYear === today.getFullYear() && calMonth === today.getMonth() && day === today.getDate();
+            const el = document.createElement('div');
+            el.className = 'cal-day' + (screeningDays.has(key) ? ' has-screening' : '') + (isToday ? ' today' : '');
+            el.textContent = day;
+            if (screeningDays.has(key)) {
+                el.addEventListener('click', () => { window.location.href = 'index.html'; });
+            }
+            grid.appendChild(el);
+        }
+        block.appendChild(grid);
+
+        return block;
+    }
+
+    months.forEach(({ year, month }) => {
+        monthsContainer.appendChild(buildMonth(year, month));
+    });
+
+    // --- Nav: arrow opens the menu, X always goes home ---
+    const arrowBtn = document.querySelector('.arrow-btn');
+    const closeBtn = document.querySelector('.close-btn');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    let menuOpen = false;
+
+    arrowBtn.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        menuOverlay.classList.toggle('open', menuOpen);
+    });
+
+    closeBtn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+
+    document.querySelectorAll('.menu-link').forEach((link) => {
+        link.addEventListener('click', (e) => {
+            if (link.getAttribute('href') === '#') e.preventDefault();
+            menuOpen = false;
+            menuOverlay.classList.remove('open');
+        });
+    });
+</script>
+
+</body>
+</html>
