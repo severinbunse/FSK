@@ -7,23 +7,27 @@
     <link rel="stylesheet" href="style.css">
 <style type="text/css">
 
-    /* logo (with the menu button beside it) takes the smaller golden section
-       of the screen (38.2%), today's screenings sit at the bottom of the larger one */
     body {
+        padding: 0 6vw;
+    }
+
+    /* the first screen: logo (with the menu link beside it) at the top,
+       a little more than the smaller golden section (38.2%) of the screen,
+       today's screenings at the bottom */
+    .screen {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
         min-height: 100dvh;
-        padding: 0 6vw;
-        box-sizing: border-box;
     }
+
 
     .logo {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        height: 38.2vh;
-        height: 38.2dvh;
+        height: 42vh;
+        height: 42dvh;
         padding-top: calc(6vw + env(safe-area-inset-top));
         box-sizing: border-box;
     }
@@ -90,6 +94,8 @@
 </head>
 <body>
 
+<div class="screen">
+
 <div class="logo">
     <img src="../images/logo_vertical.png" alt="fsk Kino">
     <a class="menu-link" href="menu.html">Menü</a>
@@ -104,6 +110,8 @@
         <li><a href="spielzeiten.html#d-2026-05-28">Mauern Aus Sand</a><span>20:30</span></li>
     </ul>
 </section>
+
+</div>
 
 </body>
 </html>

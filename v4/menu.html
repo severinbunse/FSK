@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 <style type="text/css">
 
-    /* menu fills the screen, legal links sit below it; on short screens the page scrolls instead of overlapping */
+    /* menu words centred on the screen */
     body {
         display: flex;
         flex-direction: column;
@@ -31,16 +31,6 @@
         line-height: var(--leading-menu);
     }
 
-    .legal {
-        padding-top: 16px;
-        padding-bottom: calc(16px + env(safe-area-inset-bottom));
-        display: flex;
-        justify-content: center;
-        gap: 0.5em;
-        font-size: var(--size-60);
-        line-height: var(--leading-display);
-    }
-
 </style>
 </head>
 <body>
@@ -62,11 +52,6 @@
         <li><a href="tickets.html">Tickets</a></li>
     </ul>
 </nav>
-
-<footer class="legal">
-    <a href="impressum.html">Impressum</a>
-    <a href="datenschutz.html">Datenschutz</a>
-</footer>
 
 </body>
 </html>
