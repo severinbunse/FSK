@@ -16,8 +16,22 @@
         min-height: 100dvh;
         padding: 0 6vw;
         box-sizing: border-box;
-        /* TRYING OUT: film still as background */
-        background: #508ef5 url('../images/rose.webp') center / cover no-repeat;
+        background: transparent;
+    }
+
+    /* TRYING OUT: film still as background.
+       A fixed layer instead of the body background, made taller than the screen
+       so it also fills the areas behind the phone's status bar and browser bars
+       (otherwise the blue page colour shows there as a frame). */
+    body::before {
+        content: "";
+        position: fixed;
+        top: -10vh;
+        left: 0;
+        right: 0;
+        height: 120lvh;
+        z-index: -1;
+        background: url('../images/rose.webp') center / cover no-repeat;
     }
 
     .logo {
