@@ -64,6 +64,34 @@
         white-space: nowrap;
     }
 
+    .day li {
+        cursor: pointer;
+    }
+
+    /* image + short text that opens under a screening */
+    .day .info {
+        display: block;
+        cursor: auto;
+        margin: 8px 0 24px;
+    }
+
+    .day .info::after {
+        content: none;
+    }
+
+    .info img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .info p {
+        margin: 12px 0 0;
+        font-family: var(--font-text);
+        font-size: var(--size-18);
+        line-height: 1.4;
+    }
+
 </style>
 </head>
 <body>
@@ -145,6 +173,40 @@
         </ul>
     </section>
 </main>
+
+<script>
+    // placeholder texts, to be replaced with the real film descriptions
+    const placeholder = 'Kurzer Text zum Film: worum es geht, wer ihn gemacht hat, und warum man ihn im Kino sehen sollte. Zwei bis drei Sätze.';
+
+    const films = {
+        'The North': { img: 'thenorth.webp', text: placeholder },
+        'Mauern Aus Sand': { img: 'MauernAusSand.webp', text: placeholder },
+        'Rose': { img: 'rose.webp', text: placeholder },
+        'Eagles Of The Republic': { img: 'eaglesoftherepublic1.webp', text: placeholder },
+        'Wolves': { img: 'wolves.webp', text: placeholder },
+        'Ich Verstehe Ihren Unmut': { img: 'ichversteheihrenunmut.webp', text: placeholder },
+        'Wolken Über Lützerath': { img: 'wolkenueberluetzerath.webp', text: placeholder },
+        'Was An Empfindsamkeit Bleibt': { img: 'Wasanempfindsamkeitbleibt.webp', text: placeholder },
+    };
+
+    // tap a screening to open its image and text underneath, tap again to close
+    document.querySelectorAll('.day li').forEach(li => {
+        li.addEventListener('click', () => {
+            const next = li.nextElementSibling;
+            if (next && next.classList.contains('info')) {
+                next.remove();
+                return;
+            }
+            const title = li.firstElementChild.textContent;
+            const film = films[title];
+            if (!film) return;
+            const info = document.createElement('li');
+            info.className = 'info';
+            info.innerHTML = `<img src="../images/${film.img}" alt="${title}"><p>${film.text}</p>`;
+            li.after(info);
+        });
+    });
+</script>
 
 </body>
 </html>

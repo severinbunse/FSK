@@ -54,13 +54,30 @@
     font-style: italic;
 }
 
+@font-face {
+    font-family: 'Archivo';
+    src: url('../fonts/archivo_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url('../fonts/archivo_italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
 :root {
     /* Bringhurst's type scale, extended above 72 (96, 120) for headlines:
        6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 60 72 96 120 */
+    --size-18: 18px;
     --size-60: 60px;
     --size-120: 120px;
     /* fixed offset so the shadow is identical on every size of text */
     --shadow: 2px 2px 0 black;
+    /* reading text, under the Movie Poster headings */
+    --font-text: 'Archivo', sans-serif;
 }
 
 html, body {
