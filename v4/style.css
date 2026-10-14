@@ -55,8 +55,11 @@
 }
 
 :root {
-    /* menu words and page titles share this size */
-    --size-headline: 13vh;
+    /* Bringhurst's type scale, extended above 72 (96, 120) for headlines:
+       6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 60 72 96 120 */
+    --size-24: 24px;
+    --size-60: 60px;
+    --size-120: 120px;
     /* fixed offset so the shadow is identical on every size of text */
     --shadow: 2px 2px 0 black;
 }
