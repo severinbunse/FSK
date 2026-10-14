@@ -30,6 +30,65 @@
         margin-top: 6vw;
     }
 
+    /* month grid to jump to a day */
+    /* Kalender / Diese Woche: the pale one is inactive */
+    .switch button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        text-transform: inherit;
+        text-shadow: inherit;
+        cursor: pointer;
+    }
+
+    .week-label {
+        cursor: pointer;
+    }
+
+    .switch .pale {
+        color: #a8c7fa;
+    }
+
+    .cal {
+        font-size: var(--size-60);
+        line-height: 1;
+        text-align: center;
+        margin: 8px 0 0.5em;
+    }
+
+    .cal-month {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 0.5em;
+        margin-bottom: 4px;
+    }
+
+    .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        row-gap: 4px;
+    }
+
+    .cal-month button,
+    .cal-grid button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        text-shadow: inherit;
+        cursor: pointer;
+    }
+
+    /* days without screenings, arrows at the ends */
+    .cal .off {
+        /* 50% white over the background blue; solid so the shadow stays full black */
+        color: #a8c7fa;
+    }
+
     .day {
         font-size: var(--size-60);
         line-height: 1;
@@ -98,10 +157,16 @@
 
 <h1>Spielzeiten</h1>
 
-<main>
-    <h2>Diese Woche</h2>
 
-    <section class="day">
+<main>
+    <h2 class="switch">
+        <button type="button" class="cal-toggle" aria-expanded="false">Kalender</button>
+        /
+        <span class="week-label">Diese Woche</span>
+    </h2>
+    <div class="cal" hidden></div>
+
+    <section class="day" id="d-2026-05-28">
         <h3>Do. 28.5</h3>
         <ul>
             <li><span>Rose</span><span>17:45</span></li>
@@ -110,7 +175,7 @@
             <li><span>Mauern Aus Sand</span><span>20:30</span></li>
         </ul>
     </section>
-    <section class="day">
+    <section class="day" id="d-2026-05-29">
         <h3>Fr. 29.5</h3>
         <ul>
             <li><span>Rose</span><span>17:45</span></li>
@@ -119,7 +184,7 @@
             <li><span>Mauern Aus Sand</span><span>20:30</span></li>
         </ul>
     </section>
-    <section class="day">
+    <section class="day" id="d-2026-05-30">
         <h3>Sa. 30.5</h3>
         <ul>
             <li><span>Eagles Of The Republic</span><span>13:00</span></li>
@@ -132,7 +197,7 @@
             <li><span>Rose</span><span>20:30</span></li>
         </ul>
     </section>
-    <section class="day">
+    <section class="day" id="d-2026-05-31">
         <h3>So. 31.5</h3>
         <ul>
             <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
@@ -145,7 +210,7 @@
             <li><span>Rose</span><span>20:30</span></li>
         </ul>
     </section>
-    <section class="day">
+    <section class="day" id="d-2026-06-01">
         <h3>Mo. 1.6</h3>
         <ul>
             <li><span>Rose</span><span>17:45</span></li>
@@ -154,7 +219,7 @@
             <li><span>Mauern Aus Sand</span><span>20:30</span></li>
         </ul>
     </section>
-    <section class="day">
+    <section class="day" id="d-2026-06-02">
         <h3>Di. 2.6</h3>
         <ul>
             <li><span>Eagles Of The Republic</span><span>17:30</span></li>
@@ -163,13 +228,93 @@
             <li><span>Mauern Aus Sand</span><span>20:30</span></li>
         </ul>
     </section>
-    <section class="day">
+    <section class="day" id="d-2026-06-03">
         <h3>Mi. 3.6</h3>
         <ul>
             <li><span>Rose</span><span>17:45</span></li>
             <li><span>Eagles Of The Republic</span><span>18:00</span></li>
             <li><span>The North</span><span>19:45</span></li>
             <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <h2>Nächste Woche</h2>
+
+    <section class="day" id="d-2026-06-04">
+        <h3>Do. 4.6</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>17:45</span></li>
+            <li><span>Rose</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>19:45</span></li>
+            <li><span>The North</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-06-05">
+        <h3>Fr. 5.6</h3>
+        <ul>
+            <li><span>The North</span><span>17:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Rose</span><span>19:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-06-06">
+        <h3>Sa. 6.6</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>13:00</span></li>
+            <li><span>Wolken Über Lützerath</span><span>13:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>15:15</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>15:30</span></li>
+            <li><span>Rose</span><span>17:30</span></li>
+            <li><span>Wolves</span><span>18:00</span></li>
+            <li><span>The North</span><span>20:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-06-07">
+        <h3>So. 7.6</h3>
+        <ul>
+            <li><span>Wolves</span><span>13:15</span></li>
+            <li><span>Rose</span><span>13:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>15:15</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>16:15</span></li>
+            <li><span>The North</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:15</span></li>
+            <li><span>Wolken Über Lützerath</span><span>20:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-06-08">
+        <h3>Mo. 8.6</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>17:45</span></li>
+            <li><span>The North</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>19:45</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-06-09">
+        <h3>Di. 9.6</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>17:30</span></li>
+            <li><span>Ich Verstehe Ihren Unmut</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>The North</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-06-10">
+        <h3>Mi. 10.6</h3>
+        <ul>
+            <li><span>The North</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>19:45</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
         </ul>
     </section>
 </main>
@@ -188,6 +333,63 @@
         'Wolken Über Lützerath': { img: 'wolkenueberluetzerath.webp', text: placeholder },
         'Was An Empfindsamkeit Bleibt': { img: 'Wasanempfindsamkeitbleibt.webp', text: placeholder },
     };
+
+    // calendar: one month at a time, ‹ › step through the months that have screenings
+    const toggle = document.querySelector('.cal-toggle');
+    const weekLabel = document.querySelector('.week-label');
+    const cal = document.querySelector('.cal');
+    const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+    const dayIds = new Set([...document.querySelectorAll('.day')].map(d => d.id));
+    const pad = n => String(n).padStart(2, '0');
+    const idFor = d => `d-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+    // 'YYYY-MM' of every month with screenings, in order
+    const months = [...new Set([...dayIds].map(id => id.slice(2, 9)))].sort();
+    const now = new Date();
+    let current = Math.max(0, months.indexOf(`${now.getFullYear()}-${pad(now.getMonth() + 1)}`));
+
+    function renderMonth() {
+        const [year, month] = months[current].split('-').map(Number);
+        const first = new Date(year, month - 1, 1);
+        const last = new Date(year, month, 0);
+        let grid = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map(d => `<span>${d}</span>`).join('');
+        grid += '<span></span>'.repeat((first.getDay() + 6) % 7);
+        for (const d = new Date(first); d <= last; d.setDate(d.getDate() + 1)) {
+            grid += dayIds.has(idFor(d))
+                ? `<button type="button" data-day="${idFor(d)}">${d.getDate()}</button>`
+                : `<span class="off">${d.getDate()}</span>`;
+        }
+        cal.innerHTML = `<div class="cal-month">
+            <button type="button" data-step="-1" ${current === 0 ? 'class="off" disabled' : ''}>‹</button>
+            <span>${monthNames[month - 1]}</span>
+            <button type="button" data-step="1" ${current === months.length - 1 ? 'class="off" disabled' : ''}>›</button>
+        </div><div class="cal-grid">${grid}</div>`;
+    }
+    renderMonth();
+
+    function showCalendar(open) {
+        cal.hidden = !open;
+        toggle.setAttribute('aria-expanded', open);
+        toggle.classList.toggle('pale', !open);
+        weekLabel.classList.toggle('pale', open);
+    }
+    showCalendar(false);
+
+    toggle.addEventListener('click', () => showCalendar(cal.hidden));
+    weekLabel.addEventListener('click', () => showCalendar(false));
+
+    cal.addEventListener('click', e => {
+        const step = e.target.closest('[data-step]');
+        if (step) {
+            current += Number(step.dataset.step);
+            renderMonth();
+            return;
+        }
+        const day = e.target.closest('[data-day]');
+        if (!day) return;
+        showCalendar(false);
+        document.getElementById(day.dataset.day).scrollIntoView({ behavior: 'smooth' });
+    });
 
     // tap a screening to open its image and text underneath, tap again to close
     document.querySelectorAll('.day li').forEach(li => {
