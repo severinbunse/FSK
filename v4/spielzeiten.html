@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK – Spielzeiten</title>
+    <link rel="stylesheet" href="style.css">
+<style type="text/css">
+
+    body {
+        padding: 0 3vw calc(10vw + env(safe-area-inset-bottom));
+        text-shadow: 0.04em 0.04em 0 black;
+    }
+
+    h1, h2, h3 {
+        margin: 0;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 37vw;
+        line-height: 1;
+        margin-top: 4vw;
+    }
+
+    h2 {
+        font-size: 17.5vw;
+        line-height: 1;
+        text-transform: uppercase;
+        margin-top: 6vw;
+    }
+
+    .day {
+        font-size: 11.5vw;
+        line-height: 1;
+        margin-bottom: 1em;
+    }
+
+    h3 {
+        font-size: inherit;
+    }
+
+    .day ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    /* title ..... time, with the dots filling the gap */
+    .day li {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .day li span:last-child {
+        order: 2;
+    }
+
+    .day li::after {
+        content: "................................................................................";
+        order: 1;
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Spielzeiten</h1>
+
+<main>
+    <h2>Diese Woche</h2>
+
+    <section class="day">
+        <h3>Do. 28.5</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day">
+        <h3>Fr. 29.5</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day">
+        <h3>Sa. 30.5</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>13:00</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
+            <li><span>The North</span><span>15:15</span></li>
+            <li><span>Wolves</span><span>15:30</span></li>
+            <li><span>Wolken Über Lützerath</span><span>17:30</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day">
+        <h3>So. 31.5</h3>
+        <ul>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>13:45</span></li>
+            <li><span>The North</span><span>15:15</span></li>
+            <li><span>Wolves</span><span>16:15</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Wolken Über Lützerath</span><span>18:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day">
+        <h3>Mo. 1.6</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day">
+        <h3>Di. 2.6</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>17:30</span></li>
+            <li><span>Ich Verstehe Ihren Unmut</span><span>18:00</span></li>
+            <li><span>The North</span><span>20:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day">
+        <h3>Mi. 3.6</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+</main>
+
+</body>
+</html>

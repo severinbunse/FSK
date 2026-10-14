@@ -1,0 +1,67 @@
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster_oblique.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster_bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster_bold_oblique.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed_oblique.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed_bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed_bold_oblique.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+}
+
+html, body {
+    margin: 0;
+    font-family: 'SFMoviePoster', sans-serif;
+    background: #508ef5;
+    color: white;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
