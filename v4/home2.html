@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK</title>
+    <link rel="stylesheet" href="style.css">
+<style type="text/css">
+
+    /* alternative homepage: today's films with their stills,
+       Menü at the bottom on a bar shaped like two cinema seats */
+
+    body {
+        padding: 0 3vw calc(var(--seats-height) + env(safe-area-inset-bottom) + 24px);
+        --seats-height: 96px;
+        --seat-radius: 20px;
+        --seat-line: 4px;
+    }
+
+    h1 {
+        margin: 0;
+        padding-top: calc(12px + env(safe-area-inset-top));
+        font-size: var(--size-96);
+        line-height: var(--leading-display);
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .film {
+        margin-top: 16px;
+        font-size: var(--size-60);
+        line-height: var(--leading-display);
+    }
+
+    .film .still {
+        position: relative;
+        display: block;
+    }
+
+    .film .still img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+
+    /* logo over the first still */
+    .film .still img.logo {
+        position: absolute;
+        left: 6%;
+        top: 7%;
+        height: 86%;
+        width: auto;
+        aspect-ratio: auto;
+        object-fit: contain;
+    }
+
+    /* title ..... time ..... time */
+    .times {
+        display: flex;
+        align-items: baseline;
+        margin-top: 8px;
+    }
+
+    .times .dots {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .times .dots::before {
+        content: "........................................................................................................................................................................................................";
+    }
+
+    /* --- the seats --- */
+
+    .seats {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        padding: 0 3vw;
+        background: linear-gradient(to bottom, transparent var(--seat-radius), #508ef5 var(--seat-radius));
+    }
+
+    .seat-row {
+        display: flex;
+        height: calc(var(--seats-height) + env(safe-area-inset-bottom));
+    }
+
+    /* each seat: blue fill with rounded top corners, white line over the top
+       that stops right after the corners, and a black copy of the line as shadow */
+    .seat {
+        flex: 1;
+        position: relative;
+        isolation: isolate;
+        background: #508ef5;
+        border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    }
+
+    .seat::before,
+    .seat::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: var(--seat-line) solid white;
+        border-bottom: 0;
+        border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+        -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+        mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    }
+
+    .seat::before {
+        z-index: 1;
+    }
+
+    .seat::after {
+        border-color: black;
+        transform: translate(2px, 2px);
+    }
+
+    .seats .menu-link {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(var(--seat-radius) - 4px);
+        z-index: 2;
+        font-size: var(--size-96);
+        line-height: var(--leading-display);
+        text-align: center;
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Heute</h1>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-05-28">
+        <img src="../images/films/rose.webp" alt="Rose">
+        <img class="logo" src="../images/logo_vertical.png" alt="fsk Kino">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-05-28">Rose</a><span class="dots"></span><span>17:45</span></div>
+</article>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-05-28">
+        <img src="../images/films/eaglesoftherepublic1.webp" alt="Eagles Of The Republic" loading="lazy">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-05-28">Eagles Of The Republic</a><span class="dots"></span><span>18:00</span></div>
+</article>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-05-28">
+        <img src="../images/films/thenorth.webp" alt="The North" loading="lazy">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-05-28">The North</a><span class="dots"></span><span>19:45</span></div>
+</article>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-05-28">
+        <img src="../images/films/MauernAusSand.webp" alt="Mauern Aus Sand" loading="lazy">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-05-28">Mauern Aus Sand</a><span class="dots"></span><span>20:30</span></div>
+</article>
+
+<nav class="seats">
+    <div class="seat-row">
+        <span class="seat"></span>
+        <span class="seat"></span>
+    </div>
+    <a class="menu-link" href="menu.html">Menü</a>
+</nav>
+
+</body>
+</html>

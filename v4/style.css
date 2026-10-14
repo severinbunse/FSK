@@ -60,6 +60,7 @@
     --size-18: 18px;
     --size-60: 60px;
     --size-72: 72px;
+    --size-96: 96px;
     --size-120: 120px;
     /* fixed offset so the shadow is identical on every size of text */
     --shadow: 2px 2px 0 black;
