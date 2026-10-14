@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
 <style type="text/css">
 
-    /* logo takes the smaller golden section of the screen (38.2%),
-       today's screenings and the menu link share the larger one (61.8%) */
+    /* logo (with the menu button beside it) takes the smaller golden section
+       of the screen (38.2%), today's screenings sit at the bottom of the larger one */
     body {
         display: flex;
         flex-direction: column;
@@ -20,6 +20,8 @@
 
     .logo {
         display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
         height: 38.2vh;
         height: 38.2dvh;
         padding-top: calc(3vw + env(safe-area-inset-top));
@@ -46,34 +48,31 @@
 
     .today {
         margin-top: auto;
-        margin-bottom: 48px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
         font-size: var(--size-60);
         line-height: var(--leading-display);
     }
 
-    .menu {
-        padding: 12px 0 calc(16px + env(safe-area-inset-bottom));
-        text-align: center;
-    }
-
-    /* Menü as a button: outline as thick as the letter stems (85/2048 em),
-       shadow on the outside and on the inner edge, like the type.
-       The capitals stick out ~0.03em above the line box and the line box
-       has ~0.14em of empty space below the baseline, so the top padding is
-       larger to make the space around the letters look even. */
     .menu-link {
-        display: inline-block;
-        padding: 0.19em 0.5em 0.02em;
-        position: relative;
-        isolation: isolate;
         font-size: var(--size-72);
         line-height: var(--leading-menu);
     }
 
-    /* the outline lives on its own layer so only its top half can be shown;
-       its shadow is a black copy of the outline, moved 2px like the text shadow */
-    .menu-link::before,
-    .menu-link::after {
+    /* SAVED FOR LATER: Menü as a button with only the top of a rounded outline.
+       Not in use. To switch it on, change the link to class="menu-link outlined".
+       Outline about as thick as the letter stems, its shadow is a black copy
+       moved 2px like the text shadow. The capitals stick out ~0.03em above the
+       line box and there is ~0.14em of empty space below the baseline, so the
+       top padding is larger to make the space around the letters look even. */
+    .menu-link.outlined {
+        display: inline-block;
+        padding: 0.19em 0.5em 0.02em;
+        position: relative;
+        isolation: isolate;
+    }
+
+    .menu-link.outlined::before,
+    .menu-link.outlined::after {
         content: "";
         position: absolute;
         inset: 0;
@@ -85,7 +84,7 @@
         pointer-events: none;
     }
 
-    .menu-link::after {
+    .menu-link.outlined::after {
         z-index: -1;
         border-color: black;
         transform: translate(2px, 2px);
@@ -97,6 +96,7 @@
 
 <div class="logo">
     <img src="../images/logo_vertical.png" alt="fsk Kino">
+    <a class="menu-link" href="menu.html">Menü</a>
 </div>
 
 <section class="today">
@@ -108,10 +108,6 @@
         <li><a href="spielzeiten.html#d-2026-05-28">Mauern Aus Sand</a><span>20:30</span></li>
     </ul>
 </section>
-
-<div class="menu">
-    <a class="menu-link" href="menu.html">Menü</a>
-</div>
 
 </body>
 </html>
