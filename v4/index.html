@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -7,59 +7,111 @@
     <link rel="stylesheet" href="style.css">
 <style type="text/css">
 
-    /* menu fills the screen, legal links sit below it; on short screens the page scrolls instead of overlapping */
+    /* logo takes the smaller golden section of the screen (38.2%),
+       today's screenings and the menu link share the larger one (61.8%) */
     body {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
         min-height: 100dvh;
+        padding: 0 3vw;
+        box-sizing: border-box;
+    }
+
+    .logo {
+        display: flex;
+        height: 38.2vh;
+        height: 38.2dvh;
+        padding-top: calc(3vw + env(safe-area-inset-top));
+        box-sizing: border-box;
+    }
+
+    .logo img {
+        display: block;
+        height: 100%;
+        width: auto;
+    }
+
+    /* Heute and the date set like "Diese Woche" and the days on Spielzeiten */
+    .today h2 {
+        margin: 0;
+        font-size: inherit;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .today .caps {
+        text-transform: uppercase;
+    }
+
+    .today {
+        margin-top: auto;
+        margin-bottom: 48px;
+        font-size: var(--size-60);
+        line-height: var(--leading-display);
     }
 
     .menu {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .menu ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
+        padding: 12px 0 calc(16px + env(safe-area-inset-bottom));
         text-align: center;
-        font-size: var(--size-120);
-        line-height: 0.82;
     }
 
-    .legal {
-        padding-top: 16px;
-        padding-bottom: calc(16px + env(safe-area-inset-bottom));
-        display: flex;
-        justify-content: center;
-        gap: 0.5em;
-        font-size: var(--size-60);
-        line-height: 1;
+    /* Menü as a button: outline as thick as the letter stems (85/2048 em),
+       shadow on the outside and on the inner edge, like the type.
+       The capitals stick out ~0.03em above the line box and the line box
+       has ~0.14em of empty space below the baseline, so the top padding is
+       larger to make the space around the letters look even. */
+    .menu-link {
+        display: inline-block;
+        padding: 0.19em 0.5em 0.02em;
+        position: relative;
+        isolation: isolate;
+        font-size: var(--size-72);
+        line-height: var(--leading-menu);
+    }
+
+    /* the outline lives on its own layer so only its top half can be shown;
+       its shadow is a black copy of the outline, moved 2px like the text shadow */
+    .menu-link::before,
+    .menu-link::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 0.055em solid white;
+        border-radius: 0.15em;
+        /* keep only the top edge and the rounded corners (radius 0.15em) */
+        -webkit-mask-image: linear-gradient(to bottom, black 0.15em, transparent 0.15em);
+        mask-image: linear-gradient(to bottom, black 0.15em, transparent 0.15em);
+        pointer-events: none;
+    }
+
+    .menu-link::after {
+        z-index: -1;
+        border-color: black;
+        transform: translate(2px, 2px);
     }
 
 </style>
 </head>
 <body>
 
-<nav class="menu">
-    <ul>
-        <li><a href="spielzeiten.html">Spielzeiten</a></li>
-        <li>Vorschau</li>
-        <li>Kontact</li>
-        <li>Kino</li>
-        <li>Schafsuche</li>
-        <li>Tickets</li>
-    </ul>
-</nav>
+<div class="logo">
+    <img src="../images/logo_vertical.png" alt="fsk Kino">
+</div>
 
-<footer class="legal">
-    <span>Impressum</span>
-    <span>Datenschutz</span>
-</footer>
+<section class="today">
+    <h2><span class="caps">Heute</span>, Do. 28.5</h2>
+    <ul class="leaders">
+        <li><a href="spielzeiten.html#d-2026-05-28">Rose</a><span>17:45</span></li>
+        <li><a href="spielzeiten.html#d-2026-05-28">Eagles Of The Republic</a><span>18:00</span></li>
+        <li><a href="spielzeiten.html#d-2026-05-28">The North</a><span>19:45</span></li>
+        <li><a href="spielzeiten.html#d-2026-05-28">Mauern Aus Sand</a><span>20:30</span></li>
+    </ul>
+</section>
+
+<div class="menu">
+    <a class="menu-link" href="menu.html">Menü</a>
+</div>
 
 </body>
 </html>
