@@ -57,6 +57,8 @@
 :root {
     /* menu words and page titles share this size */
     --size-headline: 13vh;
+    /* fixed offset so the shadow is identical on every size of text */
+    --shadow: 2px 2px 0 black;
 }
 
 html, body {
@@ -64,6 +66,7 @@ html, body {
     font-family: 'SFMoviePoster', sans-serif;
     background: #508ef5;
     color: white;
+    text-shadow: var(--shadow);
 }
 
 a {
