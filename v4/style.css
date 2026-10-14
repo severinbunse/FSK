@@ -55,18 +55,12 @@
 }
 
 :root {
-    /* the only three type sizes on the site */
-    --size-s: 16px;
-    --size-m: 32px;
-    --size-l: 96px;
-    --shadow: 1.5px 1.5px 0 black;
+    /* menu words and page titles share this size */
+    --size-headline: 13vh;
 }
 
 html, body {
     margin: 0;
-    font-size: var(--size-s);
-    line-height: 1.2;
-    text-shadow: var(--shadow);
     font-family: 'SFMoviePoster', sans-serif;
     background: #508ef5;
     color: white;
