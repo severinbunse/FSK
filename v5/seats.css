@@ -1,0 +1,231 @@
+/* The seats: a bar at the bottom of every page shaped like two cinema seats,
+   with Menü in it. Tapping Menü slides the seats up with the menu inside.
+   Used together with seats.js. */
+
+:root {
+    --seats-height: 108px;
+    /* menu rows: space between seat line and word, and below the word */
+    --row-top: 22px;
+    --row-bottom: 11px;
+    --seat-radius: 20px;
+    --seat-line: 4px;
+    /* how long the seats take to slide, and the blue cover to fade */
+    --seats-speed: 0.65s;
+}
+
+/* room at the end of the page so nothing hides behind the bar */
+body.has-seats {
+    padding-bottom: calc(var(--seats-height) + env(safe-area-inset-bottom) + 24px);
+}
+
+.seats {
+    --bar: calc(var(--seats-height) + env(safe-area-inset-bottom));
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    height: calc(100dvh - env(safe-area-inset-top) - 24px);
+    padding: 0 3vw;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, transparent var(--seat-radius), #508ef5 var(--seat-radius));
+    transform: translateY(calc(100% - var(--bar)));
+    transition: transform var(--seats-speed) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.seats.open {
+    transform: none;
+}
+
+.seat-row {
+    display: flex;
+    height: 100%;
+}
+
+/* each seat: blue fill with rounded top corners, white line over the top
+   that stops right after the corners, and a black copy of the line as shadow */
+.seat {
+    flex: 1;
+    position: relative;
+    isolation: isolate;
+    background: #508ef5;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+}
+
+.seat::before,
+.seat::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--seat-line) solid white;
+    border-bottom: 0;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+}
+
+.seat::before {
+    z-index: 1;
+}
+
+.seat::after {
+    border-color: black;
+    transform: translate(2px, 2px);
+}
+
+/* Menü sits in the seat backs, tapping it opens and closes the menu */
+.seats .menu-link {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--row-top);
+    z-index: 2;
+    font-size: var(--size-96);
+    line-height: var(--leading-menu);
+    text-align: center;
+}
+
+.seats ul {
+    position: absolute;
+    left: 3vw;
+    right: 3vw;
+    /* rows follow straight on from the Menü row, same spacing as between rows */
+    top: calc(var(--row-top) + 1em * 0.78 + var(--row-bottom));
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0 0 24px;
+    list-style: none;
+    text-align: center;
+    font-size: var(--size-96);
+    line-height: var(--leading-menu);
+}
+
+/* every menu item sits in its own row of two seats, like the bar:
+   two seat-back lines side by side (top edge and rounded corners,
+   black copy as shadow) */
+.seats li {
+    position: relative;
+    padding: var(--row-top) 0 var(--row-bottom);
+}
+
+.seat-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    isolation: isolate;
+    pointer-events: none;
+}
+
+.seat-back + .seat-back {
+    left: 50%;
+}
+
+.seat-back::before,
+.seat-back::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--seat-line) solid white;
+    border-bottom: 0;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+}
+
+.seat-back::before {
+    z-index: 1;
+}
+
+.seat-back::after {
+    border-color: black;
+    transform: translate(2px, 2px);
+}
+
+/* the page behind doesn't scroll while the menu is open,
+   and is covered in blue so nothing peeks out above the seats */
+body.menu-open {
+    overflow: hidden;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    background: #508ef5;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--seats-speed), visibility 0s var(--seats-speed);
+}
+
+body.menu-open::after {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--seats-speed);
+}
+
+/* --- moving between pages ---
+   Browsers that support it animate from one page to the next: tapping a menu
+   word loads the new page underneath, and the open menu slides back down into
+   the seat bar of the new page, revealing it. Others just load the page. */
+
+@view-transition {
+    navigation: auto;
+}
+
+.seats {
+    view-transition-name: seats;
+}
+
+/* made to look exactly like closing the menu with Menü:
+   the blue cover over the old page fades out over the same time,
+   uncovering the new page, which is already in place underneath */
+::view-transition-old(root) {
+    animation: seats-cover-out var(--seats-speed) both;
+}
+
+::view-transition-new(root) {
+    animation: none;
+}
+
+@keyframes seats-cover-out {
+    to {
+        opacity: 0;
+    }
+}
+
+/* the open menu slides down into the bar, with the same timing and easing.
+   Only the picture of the open menu is used (the closed bar on the new page
+   is mostly off screen, so mixing the two would fade the words out early) */
+::view-transition-group(seats) {
+    animation-duration: var(--seats-speed);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-old(seats) {
+    animation: none;
+}
+
+::view-transition-new(seats) {
+    animation: none;
+    opacity: 0;
+}
+
+/* with "Reduce Motion" switched on, the menu appears and disappears without sliding */
+@media (prefers-reduced-motion: reduce) {
+    .seats,
+    body::after {
+        transition: none;
+    }
+
+    ::view-transition-group(seats),
+    ::view-transition-old(root) {
+        animation: none;
+    }
+}

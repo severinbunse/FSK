@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FSK</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seats.css">
 <style type="text/css">
 
     /* alternative homepage: today's films with their stills,
        Menü at the bottom on a bar shaped like two cinema seats */
 
     body {
-        padding: 0 3vw calc(var(--seats-height) + env(safe-area-inset-bottom) + 24px);
-        --seats-height: 96px;
-        --seat-radius: 20px;
-        --seat-line: 4px;
+        padding-left: 3vw;
+        padding-right: 3vw;
     }
 
     h1 {
@@ -68,68 +67,9 @@
         content: "........................................................................................................................................................................................................";
     }
 
-    /* --- the seats --- */
-
-    .seats {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1;
-        padding: 0 3vw;
-        background: linear-gradient(to bottom, transparent var(--seat-radius), #508ef5 var(--seat-radius));
-    }
-
-    .seat-row {
-        display: flex;
-        height: calc(var(--seats-height) + env(safe-area-inset-bottom));
-    }
-
-    /* each seat: blue fill with rounded top corners, white line over the top
-       that stops right after the corners, and a black copy of the line as shadow */
-    .seat {
-        flex: 1;
-        position: relative;
-        isolation: isolate;
-        background: #508ef5;
-        border-radius: var(--seat-radius) var(--seat-radius) 0 0;
-    }
-
-    .seat::before,
-    .seat::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border: var(--seat-line) solid white;
-        border-bottom: 0;
-        border-radius: var(--seat-radius) var(--seat-radius) 0 0;
-        -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
-        mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
-    }
-
-    .seat::before {
-        z-index: 1;
-    }
-
-    .seat::after {
-        border-color: black;
-        transform: translate(2px, 2px);
-    }
-
-    .seats .menu-link {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: calc(var(--seat-radius) - 4px);
-        z-index: 2;
-        font-size: var(--size-96);
-        line-height: var(--leading-display);
-        text-align: center;
-    }
-
 </style>
 </head>
-<body>
+<body class="has-seats">
 
 <h1>Heute im <img src="../images/logo_fsk_horizontal.png" alt="fsk"></h1>
 
@@ -161,13 +101,23 @@
     <div class="times"><a href="spielzeiten.html#d-2026-05-28">Mauern Aus Sand</a><span class="dots"></span><span>20:30</span></div>
 </article>
 
-<nav class="seats">
+<nav class="seats" id="menu">
     <div class="seat-row">
         <span class="seat"></span>
         <span class="seat"></span>
     </div>
-    <a class="menu-link" href="menu.html">Menü</a>
+    <a class="menu-link" href="menu.html" aria-expanded="false">Menü</a>
+    <ul>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="spielzeiten.html">Spielzeiten</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="vorschau.html">Vorschau</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="kontakt.html">Kontact</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="kino.html">Kino</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span>Schafsuche</li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="tickets.html">Tickets</a></li>
+    </ul>
 </nav>
+
+<script src="seats.js"></script>
 
 </body>
 </html>
