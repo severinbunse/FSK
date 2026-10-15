@@ -102,7 +102,8 @@ a {
 /* page title, links back home; same size as the words in the menu */
 .page h1 {
     font-size: var(--size-96);
-    line-height: var(--leading-display);
+    /* tight like the menu words, so what follows sits closer under the title */
+    line-height: var(--leading-menu);
     margin-top: 4vw;
 }
 

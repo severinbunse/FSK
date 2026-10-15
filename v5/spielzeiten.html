@@ -48,21 +48,23 @@
         font-size: var(--size-60);
         line-height: var(--leading-display);
         text-align: center;
-        margin: 8px 0 0.5em;
+        margin: 0 0 0.5em;
     }
 
     .cal-month {
         display: flex;
         justify-content: center;
         align-items: baseline;
-        gap: 0.5em;
-        margin-bottom: 4px;
+        gap: 0.3em;
     }
 
+    /* columns just wide enough for two digits, so the days sit closer
+       together and the rows use the tight menu line spacing */
     .cal-grid {
         display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        row-gap: 4px;
+        grid-template-columns: repeat(7, 0.75em);
+        justify-content: center;
+        line-height: var(--leading-menu);
     }
 
     .cal-month button,
@@ -435,7 +437,8 @@
         });
     });
 
-    // tap a screening to open its image and text underneath, tap again to close
+    // tap a screening to open its image and text underneath, tap again to close.
+    // Only one is open at a time: opening a new one closes the one before.
     document.querySelectorAll('.day li').forEach(li => {
         li.addEventListener('click', () => {
             const next = li.nextElementSibling;
@@ -446,6 +449,14 @@
             const title = li.firstElementChild.textContent;
             const film = films[title];
             if (!film) return;
+
+            // close any open one, keeping the tapped row where it is on screen
+            const top = li.getBoundingClientRect().top;
+            document.querySelectorAll('.day .info').forEach(open => open.remove());
+            const shift = li.getBoundingClientRect().top - top;
+            document.body.scrollTop += shift;
+            document.documentElement.scrollTop += shift;
+
             const info = document.createElement('li');
             info.className = 'info';
             info.innerHTML = `<img src="../images/films/${film.img}" alt="${title}"><p class="credits">${film.by}<br>${film.credits}</p><p>${film.text}</p>`
