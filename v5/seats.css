@@ -3,30 +3,51 @@
    Used together with seats.js. */
 
 :root {
-    --seats-height: 108px;
-    /* menu rows: space between seat line and word, and below the word */
-    --row-top: 22px;
-    --row-bottom: 11px;
     --seat-radius: 20px;
     --seat-line: 4px;
     /* how long the seats take to slide, and the blue cover to fade */
     --seats-speed: 0.65s;
+    --menu-size: var(--size-96);
+    /* the open menu fills the screen below the status bar (minus a small gap)
+       with 7 equal rows: Menü/Home and the six pages. Based on the smallest
+       visible height, so it stays the same while Safari's bars come and go. */
+    --panel: calc(100svh - env(safe-area-inset-top) - 24px);
+    /* below the rows: a line with Impressum and Datenschutz */
+    --legal: 40px;
+    --row: calc((var(--panel) - var(--legal) - env(safe-area-inset-bottom)) / 7);
 }
 
-/* room at the end of the page so nothing hides behind the bar */
+/* short screens (e.g. iPhone SE): one step down the scale so the rows still fit */
+@media (max-height: 740px) {
+    :root {
+        --menu-size: var(--size-72);
+    }
+}
+
+/* The page scrolls inside the body rather than the whole window. That way
+   Safari keeps its address bar and toolbar still, and the bar doesn't ride
+   up and down with them. */
+html:has(body.has-seats) {
+    height: 100%;
+    overflow: hidden;
+}
+
 body.has-seats {
-    padding-bottom: calc(var(--seats-height) + env(safe-area-inset-bottom) + 24px);
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    /* room at the end of the page so nothing hides behind the bar */
+    padding-bottom: calc(var(--row) + env(safe-area-inset-bottom) + 24px);
 }
 
 .seats {
-    --bar: calc(var(--seats-height) + env(safe-area-inset-bottom));
+    --bar: calc(var(--row) + env(safe-area-inset-bottom));
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 10;
-    /* smallest visible height: stays the same while Safari's bars come and go */
-    height: calc(100svh - env(safe-area-inset-top) - 24px);
+    height: var(--panel);
     padding: 0 3vw;
     box-sizing: border-box;
     background: linear-gradient(to bottom, transparent var(--seat-radius), #508ef5 var(--seat-radius));
@@ -74,35 +95,64 @@ body.has-seats {
     transform: translate(2px, 2px);
 }
 
-/* Menü sits in the seat backs, tapping it opens and closes the menu */
+/* Menü/Home and the six pages are all rows of the same height, with the word
+   placed the same way in each: a little below the middle of the row */
+.seats .menu-link,
+.seats li {
+    display: block;
+    height: var(--row);
+    box-sizing: border-box;
+    padding-top: calc((var(--row) - 0.78em) * 0.6);
+    font-size: var(--menu-size);
+    line-height: var(--leading-menu);
+    text-align: center;
+}
+
 .seats .menu-link {
     position: absolute;
     left: 0;
     right: 0;
-    top: var(--row-top);
+    top: 0;
     z-index: 2;
-    font-size: var(--size-96);
-    line-height: var(--leading-menu);
-    text-align: center;
 }
 
 .seats ul {
     position: absolute;
     left: 3vw;
     right: 3vw;
-    /* rows follow straight on from the Menü row, same spacing as between rows */
-    top: calc(var(--row-top) + 1em * 0.78 + var(--row-bottom));
-    bottom: 0;
+    top: var(--row);
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
     margin: 0;
-    padding: 0 0 24px;
+    padding: 0;
     list-style: none;
+}
+
+/* Impressum and Datenschutz, small, at the bottom of the open menu */
+.menu-legal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--row) * 7);
+    z-index: 2;
+    margin: 0;
+    padding-top: 8px;
+    font-family: var(--font-text);
+    font-size: var(--size-18);
+    line-height: 1;
     text-align: center;
-    font-size: var(--size-96);
-    line-height: var(--leading-menu);
+}
+
+.menu-legal a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+/* while the menu is closed its rows are hidden, so nothing peeks out under the
+   bar; they stay visible until the seats have finished sliding down */
+.seats:not(.open) ul,
+.seats:not(.open) .menu-legal {
+    visibility: hidden;
+    transition: visibility 0s var(--seats-speed);
 }
 
 /* every menu item sits in its own row of two seats, like the bar:
@@ -110,7 +160,6 @@ body.has-seats {
    black copy as shadow) */
 .seats li {
     position: relative;
-    padding: var(--row-top) 0 var(--row-bottom);
 }
 
 .seat-back {
@@ -150,7 +199,7 @@ body.has-seats {
 
 /* the page behind doesn't scroll while the menu is open,
    and is covered in blue so nothing peeks out above the seats */
-body.menu-open {
+body.has-seats.menu-open {
     overflow: hidden;
 }
 

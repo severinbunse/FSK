@@ -98,21 +98,10 @@ a {
     text-align: center;
 }
 
-/* X in the top right corner, back to the menu */
-.close {
-    position: absolute;
-    top: calc(12px + env(safe-area-inset-top));
-    right: 12px;
-}
 
-.close svg {
-    display: block;
-    filter: drop-shadow(var(--shadow));
-}
-
-/* page title, links back to the menu */
+/* page title, links back home; same size as the words in the menu */
 .page h1 {
-    font-size: var(--size-120);
+    font-size: var(--size-96);
     line-height: var(--leading-display);
     margin-top: 4vw;
 }
@@ -120,7 +109,6 @@ a {
 .page h2 {
     font-size: var(--size-60);
     line-height: var(--leading-display);
-    text-transform: uppercase;
     margin: 6vw 0 12px;
 }
 
@@ -185,13 +173,6 @@ a {
     line-height: var(--leading-display);
 }
 
-/* big centered lines in Movie Poster, e.g. the address */
-.big {
-    margin: 0 0 12px;
-    font-size: var(--size-60);
-    line-height: var(--leading-display);
-    text-align: center;
-}
 
 /* image + short text that opens under a film */
 .info img {
