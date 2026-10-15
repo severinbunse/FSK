@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seats.css">
+<style type="text/css">
+
+    /* alternative homepage: today's films with their stills,
+       Menü at the bottom on a bar shaped like two cinema seats */
+
+    body {
+        padding-left: 3vw;
+        padding-right: 3vw;
+    }
+
+    h1 {
+        margin: 0;
+        padding-top: calc(12px + env(safe-area-inset-top));
+        font-size: var(--size-96);
+        line-height: var(--leading-display);
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .film {
+        margin-top: 8px;
+        font-size: var(--size-60);
+        line-height: var(--leading-menu);
+    }
+
+    .film .still {
+        position: relative;
+        display: block;
+    }
+
+    .film .still img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+
+    /* the horizontal fsk logo as a word in the title */
+    h1 img {
+        height: 0.95em;
+        width: auto;
+        vertical-align: -0.12em;
+    }
+
+    /* title ..... time ..... time */
+    .times {
+        display: flex;
+        align-items: baseline;
+        margin-top: 6px;
+    }
+
+    .times .dots {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .times .dots::before {
+        content: "........................................................................................................................................................................................................";
+    }
+
+</style>
+</head>
+<body class="has-seats">
+
+<h1>Heute im <img src="../images/logo_fsk_horizontal_blue.png" alt="fsk"></h1>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-09-24">
+        <img src="../images/films/rose.webp" alt="Rose">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-09-24">Rose</a><span class="dots"></span><span>17:45</span></div>
+</article>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-09-24">
+        <img src="../images/films/eaglesoftherepublic1.webp" alt="Eagles Of The Republic" loading="lazy">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-09-24">Eagles Of The Republic</a><span class="dots"></span><span>18:00</span></div>
+</article>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-09-24">
+        <img src="../images/films/thenorth.webp" alt="The North" loading="lazy">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-09-24">The North</a><span class="dots"></span><span>19:45</span></div>
+</article>
+
+<article class="film">
+    <a class="still" href="spielzeiten.html#d-2026-09-24">
+        <img src="../images/films/MauernAusSand.webp" alt="Mauern Aus Sand" loading="lazy">
+    </a>
+    <div class="times"><a href="spielzeiten.html#d-2026-09-24">Mauern Aus Sand</a><span class="dots"></span><span>20:30</span></div>
+</article>
+
+<footer class="site-footer text">
+    <a href="index.html"><img src="../images/logo_fsk_kino_blue.png" alt="fsk Kino" width="200"></a>
+    <p>Segitzdamm 2<br>10969 Berlin<br>Deutschland</p>
+    <p>Tel: <a href="tel:+49306142464">030 6142464</a><br>Vorbestellungen tgl. 12–22 Uhr<br>Fax: 030 6159185<br>E-Mail: <a href="mailto:post@fsk-kino.de">post@fsk-kino.de</a></p>
+    <p><a href="http://www.europa-cinemas.org/">Europa Cinemas</a> · <a href="https://mastodon.berlin/@fskkino">Mastodon</a><br><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a><br>© 2026 fsk Kino &amp; Peripher Filmverleih GmbH<br><a href="kino.html#newsletter">Zum Newsletter!</a></p>
+</footer>
+
+<nav class="seats" id="menu">
+    <div class="seat-row">
+        <span class="seat"></span>
+        <span class="seat"></span>
+    </div>
+    <a class="menu-link" href="#menu" aria-expanded="false">Menü</a>
+    <ul>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="spielzeiten.html">Spielzeiten</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="vorschau.html">Vorschau</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="kontakt.html">Kontakt</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="kino.html">Kino</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="schafsuche.html">Schafsuche</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="tickets.html">Tickets</a></li>
+    </ul>
+    <p class="menu-legal"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+</nav>
+
+<script src="seats.js"></script>
+
+</body>
+</html>
