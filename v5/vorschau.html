@@ -7,21 +7,30 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="seats.css">
 <style type="text/css">
-    .start {
-        margin-top: 6vw;
+    /* title ..... start date, like the rows on Spielzeiten */
+    /* long titles wrap; the dots and date then follow the last line */
+    .film h4 {
+        display: flex;
+        align-items: last baseline;
+        margin: 0;
         font-size: var(--size-60);
         line-height: var(--leading-display);
-    }
-
-    .start h3,
-    .start h4 {
-        margin: 0;
-        font-size: inherit;
         font-weight: normal;
     }
 
-    .start h3 {
-        text-align: center;
+    .film h4 span:last-child {
+        white-space: nowrap;
+    }
+
+    .film .dots {
+        flex: 1;
+        min-width: 0.3em;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .film .dots::before {
+        content: "........................................................................................................................................................................................................";
     }
 
     .film {
@@ -38,10 +47,8 @@
 <h1><a href="index.html">Vorschau</a></h1>
 
 <main>
-    <section class="start">
-        <h3>Ab Do. 8.10</h3>
         <article class="film">
-            <h4>Sternbrücke Forever</h4>
+            <h4><span>Sternbrücke Forever</span><span class="dots"></span><span>ab 8.10</span></h4>
             <div class="info">
             <img src="../images/films/sternbruecke-forever.webp" alt="Sternbrücke Forever" loading="lazy">
             <p class="credits">Ein Film von Christian Hornung<br>DE 2026, 99 Min., Deutsch, Englisch mit deutschen Untertiteln</p>
@@ -50,24 +57,18 @@
             <p><a href="https://booking.cinetixx.de/frontend/#/movie/2278359999/3622311618">Tickets &amp; Termine</a></p>
             </div>
         </article>
-    </section>
 
-    <section class="start">
-        <h3>Ab Do. 15.10</h3>
         <article class="film">
-            <h4>London</h4>
+            <h4><span>London</span><span class="dots"></span><span>ab 15.10</span></h4>
             <div class="info">
             <img src="../images/films/london.webp" alt="London" loading="lazy">
             <p class="credits">Ein Film von Sebastian Brameshuber<br>AT 2026, 122 min., deutsche OF mit englischen Untertiteln</p>
             <p>Bobby sitzt fast immer im Auto. Unterwegs auf der Autobahn zwischen Wien und Salzburg. Um Kosten zu sparen, nimmt er andere Menschen mit und unterhält sich auf der Fahrt mit ihnen. Er lernt einen Soldaten kennen, den die Frage beschäftigt, was es bedeutet, zu kämpfen, einen Supermarkt-Azubi auf dem Weg zu seiner Familie, einen Akademiker, der zur Geschichte der Autobahn forscht, und eine queere Frau, die kurz vor ihrer Hochzeit steht. …</p>
             </div>
         </article>
-    </section>
 
-    <section class="start">
-        <h3>Ab Do. 22.10</h3>
         <article class="film">
-            <h4>Die andere Seite</h4>
+            <h4><span>Die andere Seite</span><span class="dots"></span><span>ab 22.10</span></h4>
             <div class="info">
             <img src="../images/films/die-andere-seite.webp" alt="Die andere Seite" loading="lazy">
             <p class="credits">Ein Film von Mariko Minoguchi<br>DE 2026, 106 Min.</p>
@@ -76,7 +77,7 @@
             </div>
         </article>
         <article class="film">
-            <h4>Liebhaberinnen</h4>
+            <h4><span>Liebhaberinnen</span><span class="dots"></span><span>ab 22.10</span></h4>
             <div class="info">
             <img src="../images/films/liebhaberinnen.webp" alt="Liebhaberinnen" loading="lazy">
             <p class="credits">Ein Film von Koxi<br>DE/LX 2026, 98 Min., deutsche OmeU</p>
@@ -86,19 +87,16 @@
             </div>
         </article>
         <article class="film">
-            <h4>Possible Love</h4>
+            <h4><span>Possible Love</span><span class="dots"></span><span>ab 22.10</span></h4>
             <div class="info">
             <img src="../images/films/possible-love.webp" alt="Possible Love" loading="lazy">
             <p class="credits">Ein Film von Lee Chang-dong<br>KR 2026, 164 Min., koreanische OmU</p>
             <p>In einem Aufeinandertreffen zweier Familien werden Klassenunterschiede, moralische Überzeugungen und geheimes Begehren seziert. Nach dem gewaltsamen Ende eines Streiks versuchen Ho-seok und seine Frau Mi-ok wieder in ihr Leben zurückzufinden. Doch als die junge, ambitionierte Filmemacherin Ye-ji in ihr Leben tritt, die die Geschichte dieses Arbeitskampfes in einem Dokumentarfilm aufarbeiten will, treten unterdrückte Wut und Verletzungen an die Oberfläche. …</p>
             </div>
         </article>
-    </section>
 
-    <section class="start">
-        <h3>Ab Do. 5.11</h3>
         <article class="film">
-            <h4>If Pigeons Turned to Gold</h4>
+            <h4><span>If Pigeons Turned to Gold</span><span class="dots"></span><span>ab 5.11</span></h4>
             <div class="info">
             <img src="../images/films/if-pigeons-turned-to-gold.webp" alt="If Pigeons Turned to Gold" loading="lazy">
             <p class="credits">Ein Film von Pepa Lubojacki<br>CZ/SK 2026, 110 Min., Tschechisch, Englisch OmU</p>
@@ -106,7 +104,7 @@
             </div>
         </article>
         <article class="film">
-            <h4>Iván & Hadoum</h4>
+            <h4><span>Iván & Hadoum</span><span class="dots"></span><span>ab 5.11</span></h4>
             <div class="info">
             <img src="../images/films/ivan-hadoum.webp" alt="Iván &amp; Hadoum" loading="lazy">
             <p class="credits">Ein Film von Ian de la Rosa<br>ES/DE/BE 2026, 100 Min., spanisch, arabische OmU</p>
@@ -114,31 +112,25 @@
             </div>
         </article>
         <article class="film">
-            <h4>Minotaurus</h4>
+            <h4><span>Minotaurus</span><span class="dots"></span><span>ab 5.11</span></h4>
             <div class="info">
             <img src="../images/films/minotaurus.webp" alt="Minotaurus" loading="lazy">
             <p class="credits">Ein Film von Andrei Zvyagintsev<br>FR/DE/LT 2026, 140 Min., russische OmU</p>
             <p>Russland, 2022. Der erfolgreiche Geschäftsmann Gleb sieht sich wachsendem unternehmerischem Druck und politischer Instabilität ausgesetzt. Je mehr er die Kontrolle über sein sorgfältig strukturiertes Leben verliert, desto unerbittlicher steuert er auf die Gewalt zu.</p>
             </div>
         </article>
-    </section>
 
-    <section class="start">
-        <h3>Ab Do. 12.11</h3>
         <article class="film">
-            <h4>Wild Horse Nine</h4>
+            <h4><span>Wild Horse Nine</span><span class="dots"></span><span>ab 12.11</span></h4>
             <div class="info">
             <img src="../images/films/wild-horse-nine.webp" alt="Wild Horse Nine" loading="lazy">
             <p class="credits">Ein Film von Martin McDonagh<br>GB/US/CL 2026, 118 Min., engl. OmU</p>
             <p>Die CIA-Agenten Lee (Sam Rockwell) und Chris (John Malkovich) sind in Santiago de Chile stationiert. Im Sommer 1973 arbeiten sie am Destabilisieren der Allende-Regierung, aber Chris wird immer mehr zum Sicherheitsrisiko. Er ist tödlich krank, vergisst vieles und erzählt gerne von dem, was die CIA so tut. …</p>
             </div>
         </article>
-    </section>
 
-    <section class="start">
-        <h3>Ab Do. 19.11</h3>
         <article class="film">
-            <h4>Butterfly – Rückkehr nach Gran Canaria</h4>
+            <h4><span>Butterfly – Rückkehr nach Gran Canaria</span><span class="dots"></span><span>ab 19.11</span></h4>
             <div class="info">
             <img src="../images/films/butterfly-rueckkehr-nach-gran-canaria.webp" alt="Butterfly – Rückkehr nach Gran Canaria" loading="lazy">
             <p class="credits">Ein Film von Itonje Søimer Guttormsen<br>NO/UK/SE/DE 2026, 116 Min., Norwegisch, Englisch, Spanisch, Deutsch OmU</p>
@@ -146,26 +138,22 @@
             </div>
         </article>
         <article class="film">
-            <h4>Wiener Blues – The Loneliest Man in Town</h4>
+            <h4><span>Wiener Blues – The Loneliest Man in Town</span><span class="dots"></span><span>ab 19.11</span></h4>
             <div class="info">
             <img src="../images/films/wiener-blues-the-loneliest-man-in-town.webp" alt="Wiener Blues – The Loneliest Man in Town" loading="lazy">
             <p class="credits">Ein Film von Tizza Covi und Rainer Frimmel<br>AT 2026, 86 Min., Deutsch</p>
             <p>Al Cook lebt umgeben von seinen Erinnerungen. Seine Wohnung und sein Keller sind vollgestopft mit Büchern, Videokassetten und Schallplatten. Es ist alles, was ihm von einem Leben in vollen Zügen geblieben ist. Die Zeit scheint hier stillzustehen, während sich außerhalb seiner vier Wände die Erde weitergedreht hat. …</p>
             </div>
         </article>
-    </section>
 
-    <section class="start">
-        <h3>Ab Do. 3.12</h3>
         <article class="film">
-            <h4>Parallele Leben</h4>
+            <h4><span>Parallele Leben</span><span class="dots"></span><span>ab 3.12</span></h4>
             <div class="info">
             <img src="../images/films/parallele-leben.webp" alt="Parallele Leben" loading="lazy">
             <p class="credits">Ein Film von Asghar Farhadi<br>FR/BE/IT 2026, 139 Min., französische OmU</p>
             <p>Eine Schriftstellerin beobachtet mit einem Fernrohr, was in der Wohnung gegenüber geschieht, in der zwei Brüder und eine Mitarbeiterin in einem Film-Tonstudio agieren. Als sie einen Helfer aufgedrängt bekommt, gerät auch dieser in der Bann des Geschehens und gibt sich bei der Frau von gegenüber als Schriftsteller aus, indem er Kostproben seiner Chefin als sein Werk ausgibt. …</p>
             </div>
         </article>
-    </section>
 </main>
 
 <footer class="site-footer text">
