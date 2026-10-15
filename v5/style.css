@@ -112,6 +112,12 @@ a {
     margin: 6vw 0 12px;
 }
 
+/* whatever comes first under the page title follows closely,
+   like the first still under "Heute im fsk" on the homepage */
+.page main > :first-child {
+    margin-top: 8px;
+}
+
 /* reading text */
 .text {
     font-family: var(--font-text);
@@ -186,7 +192,7 @@ a {
 }
 
 .info p {
-    margin: 12px 0 0;
+    margin: 0.8em 0 0;
     font-family: var(--font-text);
     font-size: var(--size-18);
     line-height: var(--leading-text);

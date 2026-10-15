@@ -37,13 +37,14 @@ body.has-seats {
     overflow-y: auto;
     box-sizing: border-box;
     /* room at the end of the page so nothing hides behind the bar */
-    padding-bottom: calc(var(--row) + env(safe-area-inset-bottom) / 2 + 24px);
+    padding-bottom: calc(var(--row) + 24px);
 }
 
 .seats {
-    /* the closed bar: one row, reaching only halfway into the space kept free
-       for the iPhone's home bar, so Menü sits closer to the bottom edge */
-    --bar: calc(var(--row) + env(safe-area-inset-bottom) / 2);
+    /* the closed bar is exactly one row, like each row in the open menu, so
+       Menü has the same space below it as above the next row in the menu
+       (it reaches into the space kept free for the iPhone's home bar) */
+    --bar: var(--row);
     position: fixed;
     left: 0;
     right: 0;
