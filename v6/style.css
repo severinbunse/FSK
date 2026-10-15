@@ -58,8 +58,8 @@
     /* colours of this version: white page, red type and lines */
     --bg: #ffffff;
     --fg: #ff0000;
-    /* half red over the white, for inactive things (calendar days, Kalender / Diese Woche) */
-    --pale: #ff8080;
+    /* grey for inactive things (calendar days, Kalender / Diese Woche) */
+    --pale: #a6a6a6;
 
     /* Bringhurst's type scale, extended above 72 (96, 120) for headlines:
        6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 60 72 96 120 */
