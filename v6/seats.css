@@ -77,6 +77,12 @@ body.has-seats {
     border-radius: var(--seat-radius) var(--seat-radius) 0 0;
 }
 
+/* the two seats overlap by one line width, so their inner ends meet and
+   the two curves share one line in the middle */
+.seat + .seat {
+    margin-left: calc(-1 * var(--seat-line));
+}
+
 .seat::before,
 .seat::after {
     content: "";
@@ -173,13 +179,14 @@ body.has-seats {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 50%;
+    /* each half reaches half a line width past the middle, so the two overlap */
+    width: calc(50% + var(--seat-line) / 2);
     isolation: isolate;
     pointer-events: none;
 }
 
 .seat-back + .seat-back {
-    left: 50%;
+    left: calc(50% - var(--seat-line) / 2);
 }
 
 .seat-back::before,
