@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK – Spielzeiten</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seats.css">
+<style type="text/css">
+
+    .page h2 {
+        margin-bottom: 0;
+    }
+
+    h3 {
+        margin: 0;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    /* month grid to jump to a day */
+    /* Kalender / Diese Woche: the pale one is inactive */
+    .switch button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        text-transform: inherit;
+        text-shadow: inherit;
+        cursor: pointer;
+    }
+
+    .week-label {
+        cursor: pointer;
+    }
+
+    .switch .pale {
+        color: var(--pale);
+    }
+
+    .picking .day,
+    .picking h2:not(.switch) {
+        display: none;
+    }
+
+    .cal {
+        font-size: var(--size-60);
+        line-height: var(--leading-display);
+        text-align: center;
+        margin: 0 0 0.5em;
+    }
+
+    .cal-month {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 0.3em;
+    }
+
+    /* the week rows use the tight menu line spacing */
+    .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        line-height: var(--leading-menu);
+    }
+
+    .cal-month button,
+    .cal-grid button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        text-shadow: inherit;
+        cursor: pointer;
+    }
+
+    /* days without screenings, arrows at the ends */
+    .cal .off {
+        /* 50% white over the background blue; solid so the shadow stays full black */
+        color: var(--pale);
+    }
+
+    .day {
+        font-size: var(--size-60);
+        line-height: var(--leading-display);
+        margin-bottom: 1em;
+    }
+
+    h3 {
+        font-size: var(--size-60);
+    }
+
+    .day ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    /* title ..... time, with the dots filling the gap */
+    .day li {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .day li span:last-child {
+        order: 2;
+    }
+
+    .day li::after {
+        content: "................................................................................................................................................................................................................................................................................................................................................................................................................";
+        order: 1;
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .day li {
+        cursor: pointer;
+    }
+
+    /* image + short text that opens under a screening */
+    .day .info {
+        display: block;
+        cursor: auto;
+        margin: 8px 0 24px;
+    }
+
+    .day .info::after {
+        content: none;
+    }
+
+</style>
+</head>
+<body class="page has-seats">
+
+<h1><a href="index.html">Spielzeiten</a></h1>
+
+
+<main>
+    <h2 class="switch">
+        <button type="button" class="cal-toggle" aria-expanded="false">Kalender</button>
+        /
+        <span class="week-label">Diese Woche</span>
+    </h2>
+    <div class="cal" hidden></div>
+
+    <section class="day" id="d-2026-09-24">
+        <h3>Do. 24.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-25">
+        <h3>Fr. 25.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-26">
+        <h3>Sa. 26.9</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>13:00</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
+            <li><span>The North</span><span>15:15</span></li>
+            <li><span>Wolves</span><span>15:30</span></li>
+            <li><span>Wolken Über Lützerath</span><span>17:30</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-27">
+        <h3>So. 27.9</h3>
+        <ul>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>13:45</span></li>
+            <li><span>The North</span><span>15:15</span></li>
+            <li><span>Wolves</span><span>16:15</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Wolken Über Lützerath</span><span>18:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-28">
+        <h3>Mo. 28.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-29">
+        <h3>Di. 29.9</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>17:30</span></li>
+            <li><span>Ich Verstehe Ihren Unmut</span><span>18:00</span></li>
+            <li><span>The North</span><span>20:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-30">
+        <h3>Mi. 30.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <h2>Nächste Woche</h2>
+
+    <section class="day" id="d-2026-10-01">
+        <h3>Do. 1.10</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>17:45</span></li>
+            <li><span>Rose</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>19:45</span></li>
+            <li><span>The North</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-02">
+        <h3>Fr. 2.10</h3>
+        <ul>
+            <li><span>The North</span><span>17:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Rose</span><span>19:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-03">
+        <h3>Sa. 3.10</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>13:00</span></li>
+            <li><span>Wolken Über Lützerath</span><span>13:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>15:15</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>15:30</span></li>
+            <li><span>Rose</span><span>17:30</span></li>
+            <li><span>Wolves</span><span>18:00</span></li>
+            <li><span>The North</span><span>20:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-04">
+        <h3>So. 4.10</h3>
+        <ul>
+            <li><span>Wolves</span><span>13:15</span></li>
+            <li><span>Rose</span><span>13:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>15:15</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>16:15</span></li>
+            <li><span>The North</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:15</span></li>
+            <li><span>Wolken Über Lützerath</span><span>20:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-05">
+        <h3>Mo. 5.10</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>17:45</span></li>
+            <li><span>The North</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>19:45</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-06">
+        <h3>Di. 6.10</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>17:30</span></li>
+            <li><span>Ich Verstehe Ihren Unmut</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>The North</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-07">
+        <h3>Mi. 7.10</h3>
+        <ul>
+            <li><span>The North</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>19:45</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+</main>
+
+<footer class="site-footer text">
+    <a href="index.html"><img src="../images/logo_fsk_kino_red.png" alt="fsk Kino" width="200"></a>
+    <p>Segitzdamm 2<br>10969 Berlin<br>Deutschland</p>
+    <p>Tel: <a href="tel:+49306142464">030 6142464</a><br>Vorbestellungen tgl. 12–22 Uhr<br>Fax: 030 6159185<br>E-Mail: <a href="mailto:post@fsk-kino.de">post@fsk-kino.de</a></p>
+    <p><a href="http://www.europa-cinemas.org/">Europa Cinemas</a> · <a href="https://mastodon.berlin/@fskkino">Mastodon</a><br><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a><br>© 2026 fsk Kino &amp; Peripher Filmverleih GmbH<br><a href="kino.html#newsletter">Zum Newsletter!</a></p>
+</footer>
+
+<script>
+    // from the film pages in Current Content/posts/de: director, credits and the opening of the synopsis
+    const films = {
+        'Rose': {
+            img: 'rose.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3473205031',
+            by: 'Ein Film von Markus Schleinzer',
+            credits: 'DE/AT 2026, 93 Min., Deutsch OmeU',
+            text: '<em>Rose</em> war der Film aus dem Wettbewerb der diesjährigen Berlinale, über den wohl im positiven Sinn am meisten gesprochen wurde, und das nicht nur wegen der verdient mit dem Silbernen Bären auszeichneten Hauptdarstellerin Sandra Hüller. Die dritte Regiearbeit des österreichischen Schauspielers und Casting-Direktors Markus Schleinzer ist zugänglicher als die beiden vorherigen Filme <em>Michael</em> und <em>Angelo</em>, aber immer noch faszinierend eigen. …',
+        },
+        'The North': {
+            img: 'thenorth.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3496829000',
+            by: 'Ein Film von Bart Schrijver',
+            credits: 'NL 2025, 130 Min., engl./niederländische OmU',
+            text: 'Ein Muss für Schottland-(insbesondere-Highlands)-Sehnsüchtige, Wanderbegeisterte, alle, die ruhige Filme oder großartige Landschaften auf großer Leinwand sehen möchten oder das Drama zweier Freunde, die sich wiederfinden wollen. Chris und Lluis befinden sich nach zehn Jahren der Trennung mit Rucksäcken bepackt auf einem 600km langen Wandertrail durch den Norden Schottlands zum Cape Wrath, dem nordwestlichsten Punkt des Festlandes. …',
+        },
+        'Was An Empfindsamkeit Bleibt': {
+            img: 'Wasanempfindsamkeitbleibt.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3467505070',
+            by: 'Ein Film von Daniela Magnani Hüller',
+            credits: 'DE 2026, 91 Min., deutsch portugiesische OmU, am 14.5. mit englischen Untertiteln',
+            text: 'Regisseurin Daniela Magnani Hüller hat vor 14 Jahren einen Femizidversuch durch einen damaligen Mitschüler überlebt. In ihrem Dokumentarfilm nähert sie sich der Tat und ihrer Reflexion über die Tat in einer fragmentarischen Erzählung. Vor allem spricht sie mit den Menschen, deren Handeln/Nicht-Handeln damals für sie eine wichtige Rolle gespielt hat. …',
+        },
+        'Eagles Of The Republic': {
+            img: 'eaglesoftherepublic1.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3491929210',
+            by: 'Ein Film von Tarik Saleh',
+            credits: 'SE/DK/FI/FR/DE 2026, 125 Min., arabische OmU',
+            text: 'Tarik Salehs neuer Film <em>Eagles of the Republic</em> beginnt mit handgezeichneten Postern aus der großen Zeit des ägyptischen Kinos. Das ist nicht nur Nostalgie, sondern auch ein Statement, ein persönliches, politisches und ästhetisches. …',
+        },
+        'Wolves': {
+            img: 'wolves.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3496829582',
+            by: 'Ein Film von Jonas Ulrich',
+            credits: 'CH 2025, 96 Min., engl, schweizerdeutsch OmU',
+            text: 'Mittendrin in der Black-Metal-Szene ist Regisseur Jonas Ulrich mit seinem Film <em>Wolves</em>, aber nicht nur das. Beim Max Ophüls-Preis in Saarbrücken erhielt er den Preis der Jugendjury und den der Filmkritik.',
+        },
+        'Wolken Über Lützerath': {
+            img: 'wolkenueberluetzerath.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3200509648',
+            by: 'Ein Film von Lukas Reiter',
+            credits: 'DE 2025, 110 Min., deutsche OmeU',
+            text: 'In Lützerath verläuft für Blinker, Ronni und die Bundestagsabgeordnete Kathrin Henneberger die 1,5 Grad-Grenze. Auf unterschiedliche Art kämpfen sie für den Erhalt des Dorfes im rheinischen Braunkohlerevier. Während Blinker auf Barrikaden setzt und Ronni sich auf die Medienstrategie der Besetzung konzentriert, versucht die örtliche Grünen-Abgeordnete den Protest zu unterstützen und muss eine schwere Niederlage einstecken, als die Ampelkoalition dem Kohlekompromiss mit RWE zustimmen – der zwar den Ausstieg bis 2030 festhält, aber Lützerath dem Konzern opfert. …',
+        },
+        'Mauern Aus Sand': {
+            img: 'MauernAusSand.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3497008867',
+            by: 'Ein Film von Čejen Černić Čanak',
+            credits: 'HR/LT 2025, 88 Min., kroatische Originalfassung mit deutschen Untertiteln',
+            text: 'Die Mauern aus Sand bestehen aus Sandsäcken, die dem Flussdeich helfen sollen, das gefährliche jährliche Hochwasser zu bannen. Wie alle aus dem Dorf hilft auch Marko, ein sportlicher, hilfsbereiter Automechaniker, beim Schleppen und Stapeln. Die Zukunft dieses beliebten jungen Mannes scheint in geordnete Bahnen zu führen, mit attraktiver Freundin, sicherer Ausbildung, eingebettet in Dorfgemeinschaft und Familie – bis sein Kindheitsfreund Slaven plötzlich aus Berlin heimkehrt, weil er seinen Vater beerdigen muss. …',
+        },
+        'Ich Verstehe Ihren Unmut': {
+            img: 'ichversteheihrenunmut.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3460838287',
+            by: 'Ein Film von Kilian Armando Friedrich',
+            credits: 'DE 2026, 93 Min., Deutsch, Kroatisch, Bosnisch, Türkisch OmU',
+            text: 'Objektleiterin – hört sich gut an, bedeutet aber in einer Branche, in der die Beschäftigten für harte Arbeit zu schlechten Zeiten mit wenig Anerkennung einen Lohn im unteren Lohnsektor bekommen, nur mehr Verantwortung für ein kaum mehr Geld. Heike ist zertifizierte Objektleiterin in der Reinigungsbranche, derzeit zuständig für eine Einkaufsmall, einen Kindergarten, ein Seniorenheim und eine Baustelle. …',
+        },
+    };
+
+    // calendar: one month at a time, ‹ › step through the months that have screenings
+    const toggle = document.querySelector('.cal-toggle');
+    const weekLabel = document.querySelector('.week-label');
+    const cal = document.querySelector('.cal');
+    const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+    const dayIds = new Set([...document.querySelectorAll('.day')].map(d => d.id));
+    const pad = n => String(n).padStart(2, '0');
+    const idFor = d => `d-${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+    // 'YYYY-MM' of every month with screenings, in order
+    const months = [...new Set([...dayIds].map(id => id.slice(2, 9)))].sort();
+    const now = new Date();
+    let current = Math.max(0, months.indexOf(`${now.getFullYear()}-${pad(now.getMonth() + 1)}`));
+
+    function renderMonth() {
+        const [year, month] = months[current].split('-').map(Number);
+        const first = new Date(year, month - 1, 1);
+        const last = new Date(year, month, 0);
+        let grid = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map(d => `<span>${d}</span>`).join('');
+        grid += '<span></span>'.repeat((first.getDay() + 6) % 7);
+        for (const d = new Date(first); d <= last; d.setDate(d.getDate() + 1)) {
+            grid += dayIds.has(idFor(d))
+                ? `<button type="button" data-day="${idFor(d)}">${d.getDate()}</button>`
+                : `<span class="off">${d.getDate()}</span>`;
+        }
+        cal.innerHTML = `<div class="cal-month">
+            <button type="button" data-step="-1" ${current === 0 ? 'class="off" disabled' : ''}>‹</button>
+            <span>${monthNames[month - 1]}</span>
+            <button type="button" data-step="1" ${current === months.length - 1 ? 'class="off" disabled' : ''}>›</button>
+        </div><div class="cal-grid">${grid}</div>`;
+    }
+    renderMonth();
+
+    // while the calendar is open the showtimes are hidden
+    function showCalendar(open) {
+        cal.hidden = !open;
+        document.querySelector('main').classList.toggle('picking', open);
+        toggle.setAttribute('aria-expanded', open);
+        toggle.classList.toggle('pale', !open);
+        weekLabel.classList.toggle('pale', open);
+    }
+    showCalendar(false);
+
+    toggle.addEventListener('click', () => showCalendar(cal.hidden));
+    weekLabel.addEventListener('click', () => showCalendar(false));
+
+    cal.addEventListener('click', e => {
+        const step = e.target.closest('[data-step]');
+        if (step) {
+            current += Number(step.dataset.step);
+            renderMonth();
+            return;
+        }
+        const day = e.target.closest('[data-day]');
+        if (!day) return;
+        showCalendar(false);
+        // scroll the page (which scrolls inside the body) so the date sits
+        // a little below the top edge; done by hand because Safari doesn't
+        // always keep the space set with scroll-margin
+        const target = document.getElementById(day.dataset.day);
+        const scroller = document.body.scrollHeight > document.body.clientHeight ? document.body : document.scrollingElement;
+        const top = target.getBoundingClientRect().top + scroller.scrollTop - 32;
+        scroller.scrollTo({ top, behavior: 'smooth' });
+    });
+
+    // fetch the stills in the background once the page has loaded, so they show instantly on tap
+    window.addEventListener('load', () => {
+        Object.values(films).forEach(film => {
+            new Image().src = `../images/films/${film.img}`;
+        });
+    });
+
+    // tap a screening to open its image and text underneath, tap again to close.
+    // Only one is open at a time: opening a new one closes the one before.
+    document.querySelectorAll('.day li').forEach(li => {
+        li.addEventListener('click', () => {
+            const next = li.nextElementSibling;
+            if (next && next.classList.contains('info')) {
+                next.remove();
+                return;
+            }
+            const title = li.firstElementChild.textContent;
+            const film = films[title];
+            if (!film) return;
+
+            // close any open one, keeping the tapped row where it is on screen
+            const top = li.getBoundingClientRect().top;
+            document.querySelectorAll('.day .info').forEach(open => open.remove());
+            const shift = li.getBoundingClientRect().top - top;
+            document.body.scrollTop += shift;
+            document.documentElement.scrollTop += shift;
+
+            const info = document.createElement('li');
+            info.className = 'info';
+            info.innerHTML = `<img src="../images/films/${film.img}" alt="${title}"><p class="credits">${film.by}<br>${film.credits}</p><p>${film.text}</p>`
+                + `<p><a href="${film.tickets}">Tickets &amp; Termine</a></p>`;
+            li.after(info);
+        });
+    });
+</script>
+
+
+<nav class="seats" id="menu">
+    <div class="seat-row">
+        <span class="seat"></span>
+        <span class="seat"></span>
+    </div>
+    <a class="menu-link" href="#menu" aria-expanded="false">Menü</a>
+    <ul>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="spielzeiten.html">Spielzeiten</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="vorschau.html">Vorschau</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="kontakt.html">Kontakt</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="kino.html">Kino</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="schafsuche.html">Schafsuche</a></li>
+        <li><span class="seat-back"></span><span class="seat-back"></span><a href="tickets.html">Tickets</a></li>
+    </ul>
+    <p class="menu-legal"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+</nav>
+
+<script src="seats.js"></script>
+
+</body>
+</html>

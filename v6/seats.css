@@ -1,0 +1,287 @@
+/* The seats: a bar at the bottom of every page shaped like two cinema seats,
+   with Menü in it. Tapping Menü slides the seats up with the menu inside.
+   Used together with seats.js. */
+
+:root {
+    --seat-radius: 20px;
+    --seat-line: 3px;
+    /* how long the seats take to slide, and the blue cover to fade */
+    --seats-speed: 0.65s;
+    --menu-size: var(--size-96);
+    /* the open menu fills the screen below the status bar (minus a small gap)
+       with 7 equal rows: Menü/Home and the six pages. Based on the smallest
+       visible height, so it stays the same while Safari's bars come and go. */
+    --panel: calc(100svh - env(safe-area-inset-top) - 24px);
+    /* below the rows: a line with Impressum and Datenschutz */
+    --legal: 40px;
+    --row: calc((var(--panel) - var(--legal) - env(safe-area-inset-bottom)) / 7);
+}
+
+/* short screens (e.g. iPhone SE): one step down the scale so the rows still fit */
+@media (max-height: 740px) {
+    :root {
+        --menu-size: var(--size-72);
+    }
+}
+
+/* The page scrolls inside the body rather than the whole window. That way
+   Safari keeps its address bar and toolbar still, and the bar doesn't ride
+   up and down with them. */
+html:has(body.has-seats) {
+    height: 100%;
+    overflow: hidden;
+}
+
+body.has-seats {
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    /* room at the end of the page so nothing hides behind the bar */
+    padding-bottom: calc(var(--row) + 24px);
+}
+
+.seats {
+    /* the closed bar is exactly one row, like each row in the open menu, so
+       Menü has the same space below it as above the next row in the menu
+       (it reaches into the space kept free for the iPhone's home bar) */
+    --bar: var(--row);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    height: var(--panel);
+    padding: 0 3vw;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom, transparent var(--seat-radius), var(--bg) var(--seat-radius));
+    transform: translateY(calc(100% - var(--bar)));
+    transition: transform var(--seats-speed) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.seats.open {
+    transform: none;
+}
+
+.seat-row {
+    display: flex;
+    height: 100%;
+}
+
+/* each seat: blue fill with rounded top corners, white line over the top
+   that stops right after the corners, and a black copy of the line as shadow */
+.seat {
+    flex: 1;
+    position: relative;
+    isolation: isolate;
+    background: var(--bg);
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+}
+
+.seat::before,
+.seat::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--seat-line) solid var(--fg);
+    border-bottom: 0;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+}
+
+.seat::before {
+    z-index: 1;
+}
+
+.seat::after {
+    border-color: black;
+    transform: translate(2px, 2px);
+}
+
+/* Menü/Home and the six pages are all rows of the same height, with the word
+   placed the same way in each: optically centred between the seat line and
+   the next row. The capitals stick out ~0.03em above the line box and leave
+   ~0.14em empty below the baseline, so the padding makes up for both (the
+   4px is the seat line itself). */
+.seats .menu-link,
+.seats li {
+    display: block;
+    height: var(--row);
+    box-sizing: border-box;
+    padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
+    font-size: var(--menu-size);
+    line-height: var(--leading-menu);
+    text-align: center;
+}
+
+.seats .menu-link {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.seats ul {
+    position: absolute;
+    left: 3vw;
+    right: 3vw;
+    top: var(--row);
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Impressum and Datenschutz, small, at the bottom of the open menu */
+.menu-legal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--row) * 7);
+    z-index: 2;
+    margin: 0;
+    padding-top: 8px;
+    font-family: var(--font-text);
+    font-size: var(--size-18);
+    line-height: 1;
+    text-align: center;
+}
+
+.menu-legal a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+/* while the menu is closed its rows are hidden, so nothing peeks out under the
+   bar; they stay visible until the seats have finished sliding down */
+.seats:not(.open) ul,
+.seats:not(.open) .menu-legal {
+    visibility: hidden;
+    transition: visibility 0s var(--seats-speed);
+}
+
+/* every menu item sits in its own row of two seats, like the bar:
+   two seat-back lines side by side (top edge and rounded corners,
+   black copy as shadow) */
+.seats li {
+    position: relative;
+}
+
+.seat-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    isolation: isolate;
+    pointer-events: none;
+}
+
+.seat-back + .seat-back {
+    left: 50%;
+}
+
+.seat-back::before,
+.seat-back::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--seat-line) solid var(--fg);
+    border-bottom: 0;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+}
+
+.seat-back::before {
+    z-index: 1;
+}
+
+.seat-back::after {
+    border-color: black;
+    transform: translate(2px, 2px);
+}
+
+/* the page behind doesn't scroll while the menu is open,
+   and is covered in blue so nothing peeks out above the seats */
+body.has-seats.menu-open {
+    overflow: hidden;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    background: var(--bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--seats-speed), visibility 0s var(--seats-speed);
+}
+
+body.menu-open::after {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--seats-speed);
+}
+
+/* --- moving between pages ---
+   Browsers that support it animate from one page to the next: tapping a menu
+   word loads the new page underneath, and the open menu slides back down into
+   the seat bar of the new page, revealing it. Others just load the page. */
+
+@view-transition {
+    navigation: auto;
+}
+
+.seats {
+    view-transition-name: seats;
+}
+
+/* made to look exactly like closing the menu with Menü:
+   the blue cover over the old page fades out over the same time,
+   uncovering the new page, which is already in place underneath */
+::view-transition-old(root) {
+    animation: seats-cover-out var(--seats-speed) both;
+}
+
+::view-transition-new(root) {
+    animation: none;
+}
+
+@keyframes seats-cover-out {
+    to {
+        opacity: 0;
+    }
+}
+
+/* the open menu slides down into the bar, with the same timing and easing.
+   Only the picture of the open menu is used (the closed bar on the new page
+   is mostly off screen, so mixing the two would fade the words out early) */
+::view-transition-group(seats) {
+    animation-duration: var(--seats-speed);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-old(seats) {
+    animation: none;
+}
+
+::view-transition-new(seats) {
+    animation: none;
+    opacity: 0;
+}
+
+/* with "Reduce Motion" switched on, the menu appears and disappears without sliding */
+@media (prefers-reduced-motion: reduce) {
+    .seats,
+    body::after {
+        transition: none;
+    }
+
+    ::view-transition-group(seats),
+    ::view-transition-old(root) {
+        animation: none;
+    }
+}
