@@ -58,12 +58,10 @@
         gap: 0.3em;
     }
 
-    /* columns just wide enough for two digits, so the days sit closer
-       together and the rows use the tight menu line spacing */
+    /* the week rows use the tight menu line spacing */
     .cal-grid {
         display: grid;
-        grid-template-columns: repeat(7, 0.75em);
-        justify-content: center;
+        grid-template-columns: repeat(7, 1fr);
         line-height: var(--leading-menu);
     }
 
