@@ -86,8 +86,6 @@
         font-size: var(--size-60);
         line-height: var(--leading-display);
         margin-bottom: 1em;
-        /* room above the date when the calendar jumps to it */
-        scroll-margin-top: 24px;
     }
 
     h3 {
@@ -425,7 +423,13 @@
         const day = e.target.closest('[data-day]');
         if (!day) return;
         showCalendar(false);
-        document.getElementById(day.dataset.day).scrollIntoView({ behavior: 'smooth' });
+        // scroll the page (which scrolls inside the body) so the date sits
+        // a little below the top edge; done by hand because Safari doesn't
+        // always keep the space set with scroll-margin
+        const target = document.getElementById(day.dataset.day);
+        const scroller = document.body.scrollHeight > document.body.clientHeight ? document.body : document.scrollingElement;
+        const top = target.getBoundingClientRect().top + scroller.scrollTop - 32;
+        scroller.scrollTo({ top, behavior: 'smooth' });
     });
 
     // fetch the stills in the background once the page has loaded, so they show instantly on tap

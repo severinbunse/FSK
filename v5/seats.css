@@ -4,7 +4,7 @@
 
 :root {
     --seat-radius: 20px;
-    --seat-line: 4px;
+    --seat-line: 3px;
     /* how long the seats take to slide, and the blue cover to fade */
     --seats-speed: 0.65s;
     --menu-size: var(--size-96);
