@@ -69,7 +69,10 @@
     --size-96: 96px;
     --size-120: 120px;
     /* fixed offset so the shadow is identical on every size of text */
-    --shadow: 2px 2px 0 black;
+    /* the shadow is built from two copies, 1px and 2px away, so it stays solid:
+       with a single copy 2px away, the white shows through between thin
+       strokes and their shadow */
+    --shadow: 1px 1px 0 black, 2px 2px 0 black;
     /* line heights: menu, Movie Poster headings and lists, reading text */
     --leading-menu: 0.78;
     --leading-display: 0.92;
@@ -217,7 +220,7 @@ a {
 
 .site-footer img {
     display: block;
-    filter: drop-shadow(var(--shadow));
+    filter: drop-shadow(1px 1px 0 black) drop-shadow(1px 1px 0 black);
     height: auto;
     margin-bottom: 16px;
 }
