@@ -96,13 +96,16 @@ body.has-seats {
 }
 
 /* Menü/Home and the six pages are all rows of the same height, with the word
-   placed the same way in each: a little below the middle of the row */
+   placed the same way in each: optically centred between the seat line and
+   the next row. The capitals stick out ~0.03em above the line box and leave
+   ~0.14em empty below the baseline, so the padding makes up for both (the
+   4px is the seat line itself). */
 .seats .menu-link,
 .seats li {
     display: block;
     height: var(--row);
     box-sizing: border-box;
-    padding-top: calc((var(--row) - 0.78em) * 0.6);
+    padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
     font-size: var(--menu-size);
     line-height: var(--leading-menu);
     text-align: center;
