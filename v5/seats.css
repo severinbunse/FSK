@@ -25,7 +25,8 @@ body.has-seats {
     right: 0;
     bottom: 0;
     z-index: 10;
-    height: calc(100dvh - env(safe-area-inset-top) - 24px);
+    /* smallest visible height: stays the same while Safari's bars come and go */
+    height: calc(100svh - env(safe-area-inset-top) - 24px);
     padding: 0 3vw;
     box-sizing: border-box;
     background: linear-gradient(to bottom, transparent var(--seat-radius), #508ef5 var(--seat-radius));

@@ -23,6 +23,12 @@
         showMenu(!open);
     });
 
+    // leaving for another page: the word switches back to Menü straight away,
+    // so it already reads Menü while the seats slide down onto the new page
+    window.addEventListener('pageswap', () => {
+        menuLink.textContent = 'Menü';
+    });
+
     // coming back with the back button: show the page with the menu closed
     window.addEventListener('pageshow', e => {
         if (!e.persisted) return;
