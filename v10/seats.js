@@ -3,8 +3,8 @@
 // - a list of sections (class="opens") becomes seats, two in a row: tapping one
 //   opens its section under the row, tapping it again closes it, one at a time
 // - seats you can choose (class="choose") turn white when chosen
-// - words too wide for their seat (or a line too long, class="fit") step down
-//   the type scale until they fit
+// - words too wide for their seat step down the type scale until they fit;
+//   a line too long (class="fit") steps down to 48 at most, then wraps
 // - the screen takes the height that makes everything under it whole rows:
 //   on the homepage (data-fit) it gives up to one row, to fit one more row
 //   of seats; on the other pages it grows by up to a row, so there is no
@@ -103,14 +103,38 @@
     function fitWords() {
         document.querySelectorAll('.opens .seat button, .seats a, .seat-rows.tall span, .fit').forEach(word => {
             word.style.fontSize = '';
+            word.classList.remove('wraps');
+            word.querySelectorAll('.dots').forEach(d => d.removeAttribute('style'));
+            // lines (film titles) don't go smaller than 48; they wrap instead
+            const smallest = word.classList.contains('fit') ? 48 : 0;
             let size = parseFloat(getComputedStyle(word).fontSize);
             for (const step of scale) {
-                if (step > size) continue;
+                if (step > size || step < smallest) continue;
                 word.style.fontSize = step + 'px';
                 size = step;
-                if (word.scrollWidth <= word.clientWidth) break;
+                if (word.scrollWidth <= word.clientWidth) return;
+            }
+            if (smallest) {
+                word.classList.add('wraps');
+                fillDots(word);
             }
         });
+    }
+
+    // in a line that wraps, the dots run from the end of the title's last
+    // line to the date
+    function fillDots(line) {
+        const dots = line.querySelector('.dots');
+        if (!dots) return;
+        const title = line.firstElementChild;
+        const date = line.lastElementChild;
+        const range = document.createRange();
+        range.selectNodeContents(title);
+        const rects = range.getClientRects();
+        const end = rects[rects.length - 1].right;
+        const box = line.getBoundingClientRect();
+        dots.style.left = end - box.left + 'px';
+        dots.style.right = box.right - date.getBoundingClientRect().left + 'px';
     }
 
     // --- a screen that ends on the grid of rows ---
@@ -205,6 +229,8 @@
     window.addEventListener('resize', layout);
     window.addEventListener('load', layout);
     document.fonts.ready.then(layout);
+    // (Safari can report the fonts ready before they have arrived)
+    document.fonts.addEventListener('loadingdone', layout);
     // a still that loads inside an open section changes its height
     document.addEventListener('load', e => {
         if (e.target.tagName === 'IMG') layout();

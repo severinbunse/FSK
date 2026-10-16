@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="seats.css">
 <style type="text/css">
     /* title ..... start date, like the rows on Spielzeiten; a title too long
-       for one line is set smaller until it fits (seats.js) */
+       for one line is set smaller, down to 48, and wraps if it still doesn't
+       fit; the dots and date then follow its last line (seats.js) */
     .film h4 {
         padding: 0 var(--text-inset);
         display: flex;
@@ -22,6 +23,21 @@
     .film h4 span:first-child,
     .film h4 span:last-child {
         white-space: nowrap;
+    }
+
+    .film h4.wraps span:first-child {
+        white-space: normal;
+    }
+
+    /* (placed by seats.js after the last word of the title) */
+    .film h4 {
+        position: relative;
+    }
+
+    .film h4.wraps .dots {
+        position: absolute;
+        bottom: 0;
+        min-width: 0;
     }
 
     .film .dots {
