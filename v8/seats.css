@@ -8,10 +8,8 @@
 :root {
     --seat-radius: 20px;
     --seat-line: 2px;
-    /* each row is at least this tall; with empty rows, all rows are stretched
-       a little so the last one ends at the bottom of the screen (by seats.js) */
-    --row-min: 60px;
-    --row: var(--row-min);
+    /* every row of seats, on every page */
+    --row: 60px;
     /* under the last row */
     --seats-bottom: calc(12px + env(safe-area-inset-bottom));
 }
@@ -110,7 +108,8 @@ h1.screen {
     transform: translate(2px, 2px);
 }
 
-/* the empty rows keep a little space from the content above */
+/* the empty rows keep at least this space from the content above
+   (seats.js adds what's left over when the rows don't fill it exactly) */
 .filler {
     margin-top: 12px;
 }

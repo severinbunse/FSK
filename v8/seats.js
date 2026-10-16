@@ -1,7 +1,8 @@
 // The empty seats: when the page is shorter than the screen, rows of empty seats
 // fill the space between the content and the six pages at the bottom. As many
-// whole rows as fit, all rows stretched a little so the last one ends at the
-// bottom of the screen. On longer pages there are none, and the page scrolls.
+// whole rows as fit, all as tall as the rows of the six pages; what's left over
+// (less than a row) goes above them. On longer pages there are none, and the
+// page scrolls.
 (function () {
     // the seat of the page you're on reads Home, in white, and goes to the homepage
     const here = location.pathname.split('/').pop() || 'index.html';
@@ -19,15 +20,16 @@
 
     function fill() {
         filler.replaceChildren();
-        root.style.removeProperty('--row');
-        const min = parseFloat(getComputedStyle(root).getPropertyValue('--row-min'));
+        filler.style.removeProperty('margin-top');
+        const row = parseFloat(getComputedStyle(root).getPropertyValue('--row'));
+        const gap = parseFloat(getComputedStyle(filler).marginTop);
         const bottom = parseFloat(getComputedStyle(seats).paddingBottom);
         // the page scrolls inside the body, so measure from the body's top
         const top = filler.getBoundingClientRect().top - document.body.getBoundingClientRect().top + document.body.scrollTop;
         const space = document.body.clientHeight - top - bottom;
-        const rows = Math.floor(space / min);
+        const rows = Math.floor(space / row);
         if (rows <= pageRows) return;
-        root.style.setProperty('--row', space / rows + 'px');
+        filler.style.marginTop = gap + space - rows * row + 'px';
         for (let i = 0; i < (rows - pageRows) * 2; i++) {
             filler.append(document.createElement('li'));
         }
