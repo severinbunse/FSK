@@ -1,6 +1,7 @@
 /* Every page is built the same way: the screen (blue panel) with the page name,
-   the content, then rows of two cinema seats. The bottom four rows hold the
-   pages and stay at the bottom of the screen. When the page is shorter than
+   the content, then rows of two cinema seats. The bottom three rows hold the
+   pages and stay at the bottom of the screen (Impressum and Datenschutz are
+   linked from Kontakt). When the page is shorter than
    the screen, rows of empty seats fill the space above them; when it is longer
    there are none, and the page scrolls behind the six pages.
    Used together with seats.js. */
@@ -13,7 +14,7 @@
     /* the empty rows above them: the same, so every row is in line */
     --row-empty: var(--row);
     /* how many rows of pages at the bottom */
-    --menu-rows: 4;
+    --menu-rows: 3;
     /* under the last row: 12px, or the iPhone's space for the home bar
        if that is bigger (not both added together) */
     --seats-bottom: max(12px, env(safe-area-inset-bottom));
@@ -58,6 +59,12 @@ h1.screen {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* on the other pages the screen only holds the page name, so it is flatter,
+   leaving more of the phone for what's on the page */
+.page h1.screen {
+    aspect-ratio: 3 / 1;
 }
 
 /* the logo file is white with its black shadow already in it */
