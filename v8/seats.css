@@ -143,3 +143,8 @@ h1.screen {
     line-height: var(--leading-menu);
     text-align: center;
 }
+
+/* on each page, its own seat reads Home */
+.seats a.home {
+    color: white;
+}

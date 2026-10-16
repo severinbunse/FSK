@@ -3,6 +3,15 @@
 // whole rows as fit, all rows stretched a little so the last one ends at the
 // bottom of the screen. On longer pages there are none, and the page scrolls.
 (function () {
+    // the seat of the page you're on reads Home, in white, and goes to the homepage
+    const here = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.seats a').forEach(a => {
+        if (a.getAttribute('href') !== here) return;
+        a.textContent = 'Home';
+        a.href = 'index.html';
+        a.classList.add('home');
+    });
+
     const root = document.documentElement;
     const filler = document.querySelector('.filler');
     const seats = document.querySelector('.seats');
