@@ -14,20 +14,21 @@
         margin: 0;
         padding: 0 var(--text-inset);
         list-style: none;
-        font-size: var(--size-60);
-        /* each film one row tall, in line with the seats */
-        line-height: var(--row);
+        font-size: var(--size-list);
+        line-height: var(--row-list);
     }
 
+    /* Heute is made whole rows tall (seats.js); the films sit at the bottom
+       of that space, and whatever is left over (when the number of films
+       isn't a multiple of four) goes between Heute and the first film */
     .opens > .heute {
         padding: 0;
     }
 
-    /* the lines sit a little high in their rows, for more air under the
-       last film before the next seats */
-    .heute ul {
-        position: relative;
-        top: -8px;
+    .opens > .heute.open {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     .heute a {

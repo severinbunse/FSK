@@ -62,12 +62,17 @@
        like the Home seat */
     --pale: #ffffff;
 
-    /* Bringhurst's type scale, extended above 72 (96, 120) for headlines:
-       6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 60 72 96 120 */
+    /* Bringhurst's type scale, extended above 72 (96, 120) for headlines,
+       and with 54 between 48 and 60 for the lists:
+       6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 54 60 72 96 120 */
     --size-18: 18px;
     --size-36: 36px;
     --size-48: 48px;
+    --size-54: 54px;
     --size-60: 60px;
+    /* everything that was 60: the words in the seats, the lists and the
+       headings (showtimes, film titles, prices, section headings) */
+    --size-list: var(--size-54);
     --size-72: 72px;
     --size-96: 96px;
     --size-120: 120px;
@@ -106,7 +111,7 @@ a {
 
 .page h2 {
     margin: 6vw 0 12px;
-    font-size: var(--size-60);
+    font-size: var(--size-list);
     line-height: var(--leading-display);
     font-weight: normal;
     text-align: center;
@@ -178,7 +183,7 @@ a {
     margin-bottom: 12px;
     padding-left: var(--text-inset);
     padding-right: var(--text-inset);
-    font-size: var(--size-60);
+    font-size: var(--size-list);
     line-height: var(--leading-display);
 }
 

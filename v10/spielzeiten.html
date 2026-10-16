@@ -14,26 +14,26 @@
         text-align: center;
     }
 
-    /* each showtime is one row tall, so the open day fills whole rows
-       and the days after it stay in line with the pages at the bottom */
     .day {
-        font-size: var(--size-60);
-        line-height: var(--row);
+        font-size: var(--size-list);
+        line-height: var(--row-list);
     }
 
+    /* the open day is made whole rows tall (seats.js); its films sit at the
+       bottom of that space, and whatever is left over (when the number of
+       films isn't a multiple of four) goes between the date and the first film */
     .opens > .day {
         padding: 0;
     }
 
-    /* the lines sit a little high in their rows, for more air under the
-       last film before the next seats */
-    .opens > .day ul {
-        position: relative;
-        top: -8px;
+    .opens > .day.open {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     h3 {
-        font-size: var(--size-60);
+        font-size: var(--size-list);
     }
 
     .day ul {

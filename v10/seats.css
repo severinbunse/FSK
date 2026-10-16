@@ -13,6 +13,9 @@
     --row: 60px;
     /* the empty rows above them: the same, so every row is in line */
     --row-empty: var(--row);
+    /* the lines of a list of films (showtimes, Heute): three quarters of a
+       row, so every four films fill exactly three rows */
+    --row-list: calc(var(--row) * 3 / 4);
     /* how many rows of pages at the bottom */
     --menu-rows: 3;
     /* under the last row: 12px, or the iPhone's space for the home bar
@@ -161,7 +164,7 @@ h1.screen {
     height: 100%;
     box-sizing: border-box;
     padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
-    font-size: var(--size-60);
+    font-size: var(--size-list);
     line-height: var(--leading-menu);
     text-align: center;
     /* words too wide for the seat are set smaller by seats.js */
@@ -196,7 +199,7 @@ h1.screen {
     background: none;
     color: inherit;
     font: inherit;
-    font-size: var(--size-60);
+    font-size: var(--size-list);
     line-height: var(--leading-menu);
     text-shadow: inherit;
     text-align: center;
@@ -235,7 +238,7 @@ h1.screen {
 .seat-rows.tall li {
     padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
     box-sizing: border-box;
-    font-size: var(--size-60);
+    font-size: var(--size-list);
     line-height: var(--leading-menu);
     text-align: center;
 }

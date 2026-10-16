@@ -5,8 +5,10 @@
 // - seats you can choose (class="choose") turn white when chosen
 // - words too wide for their seat (or a line too long, class="fit") step down
 //   the type scale until they fit
-// - a screen marked data-fit (homepage) gives up to one row of its height,
-//   so the rows below it exactly fill the phone
+// - the screen takes the height that makes everything under it whole rows:
+//   on the homepage (data-fit) it gives up to one row, to fit one more row
+//   of seats; on the other pages it grows by up to a row, so there is no
+//   gap between it and the first seats
 // - rows of seats line up with the rows of the pages at the bottom
 // - when the page is shorter than the screen, empty seats fill the space
 //   between the content and the pages at the bottom
@@ -97,7 +99,7 @@
     });
 
     // --- words that fit their seat ---
-    const scale = [60, 48, 36, 30, 24, 21, 18];
+    const scale = [60, 54, 48, 36, 30, 24, 21, 18];
     function fitWords() {
         document.querySelectorAll('.opens .seat button, .seats a, .seat-rows.tall span, .fit').forEach(word => {
             word.style.fontSize = '';
@@ -111,21 +113,23 @@
         });
     }
 
-    // --- a screen that makes room for one more row ---
-    // its height is set between its usual height and one row less, so that
-    // what's left of the phone under it is a whole number of rows
-    const fitScreen = document.querySelector('h1.screen[data-fit]');
+    // --- a screen that ends on the grid of rows ---
+    // what's left of the phone under the screen is made a whole number of
+    // rows: the homepage screen (data-fit) gets up to a row shorter, the
+    // others up to a row taller
+    const screen = document.querySelector('h1.screen');
     function fitHeight() {
-        if (!fitScreen) return;
-        fitScreen.style.height = '';
-        fitScreen.style.aspectRatio = '';
+        if (!screen) return;
+        screen.style.height = '';
+        screen.style.aspectRatio = '';
         const row = cssValue('--row');
-        const usual = fitScreen.offsetHeight;
-        const gap = parseFloat(getComputedStyle(fitScreen).marginBottom);
-        const space = body.clientHeight - topOf(fitScreen) - gap - parseFloat(getComputedStyle(seats).paddingBottom);
-        const rows = Math.floor((space - usual + row) / row);
-        fitScreen.style.aspectRatio = 'auto';
-        fitScreen.style.height = Math.min(usual, space - rows * row) + 'px';
+        const usual = screen.offsetHeight;
+        const gap = parseFloat(getComputedStyle(screen).marginBottom);
+        const space = body.clientHeight - topOf(screen) - gap - parseFloat(getComputedStyle(seats).paddingBottom);
+        const shrink = screen.hasAttribute('data-fit');
+        const rows = Math.floor((space - usual + (shrink ? row : 0)) / row);
+        screen.style.aspectRatio = 'auto';
+        screen.style.height = space - rows * row + 'px';
     }
 
     // --- rows in line with the pages at the bottom ---
