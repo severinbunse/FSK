@@ -8,10 +8,13 @@
 :root {
     --seat-radius: 20px;
     --seat-line: 2px;
-    /* every row of seats, on every page */
+    /* the rows with the six pages, on every page */
     --row: 60px;
-    /* under the last row */
-    --seats-bottom: calc(12px + env(safe-area-inset-bottom));
+    /* the empty rows above them, a little tighter */
+    --row-empty: 48px;
+    /* under the last row: 12px, or the iPhone's space for the home bar
+       if that is bigger (not both added together) */
+    --seats-bottom: max(12px, env(safe-area-inset-bottom));
 }
 
 /* The page scrolls inside the body rather than the whole window. That way
@@ -112,6 +115,7 @@ h1.screen {
    (seats.js adds what's left over when the rows don't fill it exactly) */
 .filler {
     margin-top: 12px;
+    grid-auto-rows: var(--row-empty);
 }
 
 /* the six pages, fixed at the bottom; the page scrolls away behind them */
