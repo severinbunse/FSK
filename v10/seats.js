@@ -5,6 +5,8 @@
 // - seats you can choose (class="choose") turn white when chosen
 // - words too wide for their seat (or a line too long, class="fit") step down
 //   the type scale until they fit
+// - a screen marked data-fit (homepage) gives up to one row of its height,
+//   so the rows below it exactly fill the phone
 // - rows of seats line up with the rows of the pages at the bottom
 // - when the page is shorter than the screen, empty seats fill the space
 //   between the content and the pages at the bottom
@@ -109,6 +111,23 @@
         });
     }
 
+    // --- a screen that makes room for one more row ---
+    // its height is set between its usual height and one row less, so that
+    // what's left of the phone under it is a whole number of rows
+    const fitScreen = document.querySelector('h1.screen[data-fit]');
+    function fitHeight() {
+        if (!fitScreen) return;
+        fitScreen.style.height = '';
+        fitScreen.style.aspectRatio = '';
+        const row = cssValue('--row');
+        const usual = fitScreen.offsetHeight;
+        const gap = parseFloat(getComputedStyle(fitScreen).marginBottom);
+        const space = body.clientHeight - topOf(fitScreen) - gap - parseFloat(getComputedStyle(seats).paddingBottom);
+        const rows = Math.floor((space - usual + row) / row);
+        fitScreen.style.aspectRatio = 'auto';
+        fitScreen.style.height = Math.min(usual, space - rows * row) + 'px';
+    }
+
     // --- rows in line with the pages at the bottom ---
     // each row of seats on the page gets a little space above it, so it sits on
     // the same grid as the rows at the bottom; open sections are made a whole
@@ -158,6 +177,7 @@
     }
 
     function layout() {
+        fitHeight();
         fitWords();
         align();
         fill();
