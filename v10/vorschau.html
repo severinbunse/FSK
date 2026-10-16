@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK – Vorschau</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seats.css">
+<style type="text/css">
+    /* title ..... start date, like the rows on Spielzeiten; a title too long
+       for one line is set smaller until it fits (seats.js) */
+    .film h4 {
+        padding: 0 var(--text-inset);
+        display: flex;
+        align-items: last baseline;
+        margin: 0;
+        font-size: var(--size-60);
+        line-height: var(--leading-display);
+        font-weight: normal;
+    }
+
+    .film h4 span:first-child,
+    .film h4 span:last-child {
+        white-space: nowrap;
+    }
+
+    .film .dots {
+        flex: 1;
+        min-width: 0.3em;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .film .dots::before {
+        content: "........................................................................................................................................................................................................";
+    }
+
+    /* a divider (seats.css) above each film */
+    .film {
+        margin: 0 0 var(--divider-gap);
+    }
+
+    .film .info {
+        margin-top: 8px;
+    }
+</style>
+</head>
+<body class="page">
+
+<h1 class="screen"><a href="index.html">Vorschau</a></h1>
+
+<main>
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Sternbrücke Forever</span><span class="dots"></span><span>ab 8.10</span></h4>
+            <div class="info">
+            <img src="../images/films/sternbruecke-forever.webp" alt="Sternbrücke Forever" loading="lazy">
+            <p class="credits">Ein Film von Christian Hornung<br>DE 2026, 99 Min., Deutsch, Englisch mit deutschen Untertiteln</p>
+            <p><strong>Am 8.10. mit anschließendem Filmgespräch.</strong></p>
+            <p>Der Deutschlandfunk titelte: ein Flugzeugträger im Wohngebiet, und so sieht es auch aus. Seit dem 1. September ist die neue sogenannte „Monsterbrücke“ fertig, Züge und Bahnen fahren wieder und die eigentlich denkmalgeschützte alte Sternbrücke in Hamburg-Altona ist Geschichte. Nun überspannte schon das vor hundert Jahren errichtete und jetzt abgerissene Bauwerk kein lauschiges Plätzchen, oder war der Grund für den Denkmalschutz auf den ersten Blick erkennbar. …</p>
+            <p><a href="https://booking.cinetixx.de/frontend/#/movie/2278359999/3622311618">Tickets &amp; Termine</a></p>
+            </div>
+        </article>
+
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>London</span><span class="dots"></span><span>ab 15.10</span></h4>
+            <div class="info">
+            <img src="../images/films/london.webp" alt="London" loading="lazy">
+            <p class="credits">Ein Film von Sebastian Brameshuber<br>AT 2026, 122 min., deutsche OF mit englischen Untertiteln</p>
+            <p>Bobby sitzt fast immer im Auto. Unterwegs auf der Autobahn zwischen Wien und Salzburg. Um Kosten zu sparen, nimmt er andere Menschen mit und unterhält sich auf der Fahrt mit ihnen. Er lernt einen Soldaten kennen, den die Frage beschäftigt, was es bedeutet, zu kämpfen, einen Supermarkt-Azubi auf dem Weg zu seiner Familie, einen Akademiker, der zur Geschichte der Autobahn forscht, und eine queere Frau, die kurz vor ihrer Hochzeit steht. …</p>
+            </div>
+        </article>
+
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Die andere Seite</span><span class="dots"></span><span>ab 22.10</span></h4>
+            <div class="info">
+            <img src="../images/films/die-andere-seite.webp" alt="Die andere Seite" loading="lazy">
+            <p class="credits">Ein Film von Mariko Minoguchi<br>DE 2026, 106 Min.</p>
+            <p><strong>Am 29.10. 20:00 mit anschließendem Filmgespräch mit Mariko Minoguchi</strong></p>
+            <p>Was bedeutet es, aus einer Gemeinschaft herausgerissen und ausgegrenzt zu werden? Dieser Frage geht Autorin und Regisseurin Mariko Minoguchi (<em>Mein Ende. Dein Anfang</em>., <em>Zeit Verbrechen: Dezember</em>) in ihrem zweiten Kino-Spielfilm nach.</p>
+            </div>
+        </article>
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Liebhaberinnen</span><span class="dots"></span><span>ab 22.10</span></h4>
+            <div class="info">
+            <img src="../images/films/liebhaberinnen.webp" alt="Liebhaberinnen" loading="lazy">
+            <p class="credits">Ein Film von Koxi<br>DE/LX 2026, 98 Min., deutsche OmeU</p>
+            <p><strong>Am 24.10. mit anschließendem Filmgespräch mit Koxi.</strong></p>
+            <p>Schlafsack auf dem Boden vor dem Fitnessstudio-Kästchen, Coaching-Seminar und morgendliches Shift-Briefing (mit Verkaufslächeln-Übung): knallharte Situationen, in denen sich Brigitte (Johanna Wokalek) wiederfindet. Sie ist die Protagonistin dieser Elfriede-Jelinek-Adaption, für die Debütantin Koxi Inventur mit dem einstigen Erfolgs-Roman der späteren Nobelpreisträgerin macht, indem sie ihn aus den 1970er Jahren in den heutigen Spätkapitalismus katapultiert. …</p>
+            <p><a href="https://booking.cinetixx.de/frontend/#/movie/2278359999/3642095315">Tickets &amp; Termine</a></p>
+            </div>
+        </article>
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Possible Love</span><span class="dots"></span><span>ab 22.10</span></h4>
+            <div class="info">
+            <img src="../images/films/possible-love.webp" alt="Possible Love" loading="lazy">
+            <p class="credits">Ein Film von Lee Chang-dong<br>KR 2026, 164 Min., koreanische OmU</p>
+            <p>In einem Aufeinandertreffen zweier Familien werden Klassenunterschiede, moralische Überzeugungen und geheimes Begehren seziert. Nach dem gewaltsamen Ende eines Streiks versuchen Ho-seok und seine Frau Mi-ok wieder in ihr Leben zurückzufinden. Doch als die junge, ambitionierte Filmemacherin Ye-ji in ihr Leben tritt, die die Geschichte dieses Arbeitskampfes in einem Dokumentarfilm aufarbeiten will, treten unterdrückte Wut und Verletzungen an die Oberfläche. …</p>
+            </div>
+        </article>
+
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>If Pigeons Turned to Gold</span><span class="dots"></span><span>ab 5.11</span></h4>
+            <div class="info">
+            <img src="../images/films/if-pigeons-turned-to-gold.webp" alt="If Pigeons Turned to Gold" loading="lazy">
+            <p class="credits">Ein Film von Pepa Lubojacki<br>CZ/SK 2026, 110 Min., Tschechisch, Englisch OmU</p>
+            <p>Über fünf Jahre dokumentiert Pepa Lubojacki vier Familienmitglieder, allen voran Bruder David, der alkoholabhängig und ohne Obdach ist. In einer hochpersönlichen, tagebuchartigen Collage unternimmt Lubojacki den Versuch, die Wurzeln generationenübergreifenden Unglücks freizulegen, das seinen Ausdruck immer wieder in schweren Suchterkrankungen findet. …</p>
+            </div>
+        </article>
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Iván & Hadoum</span><span class="dots"></span><span>ab 5.11</span></h4>
+            <div class="info">
+            <img src="../images/films/ivan-hadoum.webp" alt="Iván &amp; Hadoum" loading="lazy">
+            <p class="credits">Ein Film von Ian de la Rosa<br>ES/DE/BE 2026, 100 Min., spanisch, arabische OmU</p>
+            <p>Sommer in Südspanien. Iván arbeitet in einer Gewächshausanlage und steht kurz vor der Beförderung zum Manager, die seiner Familie ein besseres Leben ermöglichen soll. Doch als Hadoum als Saisonkraft in den Betrieb kommt, erwachen alte Gefühle. Iván kennt Hadoum noch aus der Schulzeit, vor seiner Transition. …</p>
+            </div>
+        </article>
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Minotaurus</span><span class="dots"></span><span>ab 5.11</span></h4>
+            <div class="info">
+            <img src="../images/films/minotaurus.webp" alt="Minotaurus" loading="lazy">
+            <p class="credits">Ein Film von Andrei Zvyagintsev<br>FR/DE/LT 2026, 140 Min., russische OmU</p>
+            <p>Russland, 2022. Der erfolgreiche Geschäftsmann Gleb sieht sich wachsendem unternehmerischem Druck und politischer Instabilität ausgesetzt. Je mehr er die Kontrolle über sein sorgfältig strukturiertes Leben verliert, desto unerbittlicher steuert er auf die Gewalt zu.</p>
+            </div>
+        </article>
+
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Wild Horse Nine</span><span class="dots"></span><span>ab 12.11</span></h4>
+            <div class="info">
+            <img src="../images/films/wild-horse-nine.webp" alt="Wild Horse Nine" loading="lazy">
+            <p class="credits">Ein Film von Martin McDonagh<br>GB/US/CL 2026, 118 Min., engl. OmU</p>
+            <p>Die CIA-Agenten Lee (Sam Rockwell) und Chris (John Malkovich) sind in Santiago de Chile stationiert. Im Sommer 1973 arbeiten sie am Destabilisieren der Allende-Regierung, aber Chris wird immer mehr zum Sicherheitsrisiko. Er ist tödlich krank, vergisst vieles und erzählt gerne von dem, was die CIA so tut. …</p>
+            </div>
+        </article>
+
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Butterfly – Rückkehr nach Gran Canaria</span><span class="dots"></span><span>ab 19.11</span></h4>
+            <div class="info">
+            <img src="../images/films/butterfly-rueckkehr-nach-gran-canaria.webp" alt="Butterfly – Rückkehr nach Gran Canaria" loading="lazy">
+            <p class="credits">Ein Film von Itonje Søimer Guttormsen<br>NO/UK/SE/DE 2026, 116 Min., Norwegisch, Englisch, Spanisch, Deutsch OmU</p>
+            <p>Zwei Halbschwestern (Renate Reinsve, Helene Bjørneby) treffen nach 25 Jahren in Gran Canaria wieder aufeinander, wo sie in einem All-inclusive-Resort aufgewachsen sind. Nach dem Tod ihrer esoterischen Mutter sind die unterschiedlichen Frauen gezwungen, sich mit ihrer gemeinsamen Vergangenheit auseinanderzusetzen.</p>
+            </div>
+        </article>
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Wiener Blues – The Loneliest Man in Town</span><span class="dots"></span><span>ab 19.11</span></h4>
+            <div class="info">
+            <img src="../images/films/wiener-blues-the-loneliest-man-in-town.webp" alt="Wiener Blues – The Loneliest Man in Town" loading="lazy">
+            <p class="credits">Ein Film von Tizza Covi und Rainer Frimmel<br>AT 2026, 86 Min., Deutsch</p>
+            <p>Al Cook lebt umgeben von seinen Erinnerungen. Seine Wohnung und sein Keller sind vollgestopft mit Büchern, Videokassetten und Schallplatten. Es ist alles, was ihm von einem Leben in vollen Zügen geblieben ist. Die Zeit scheint hier stillzustehen, während sich außerhalb seiner vier Wände die Erde weitergedreht hat. …</p>
+            </div>
+        </article>
+
+        <article class="film">
+            <div class="divider"><span class="seat"></span><span class="seat right"></span></div>
+            <h4 class="fit"><span>Parallele Leben</span><span class="dots"></span><span>ab 3.12</span></h4>
+            <div class="info">
+            <img src="../images/films/parallele-leben.webp" alt="Parallele Leben" loading="lazy">
+            <p class="credits">Ein Film von Asghar Farhadi<br>FR/BE/IT 2026, 139 Min., französische OmU</p>
+            <p>Eine Schriftstellerin beobachtet mit einem Fernrohr, was in der Wohnung gegenüber geschieht, in der zwei Brüder und eine Mitarbeiterin in einem Film-Tonstudio agieren. Als sie einen Helfer aufgedrängt bekommt, gerät auch dieser in der Bann des Geschehens und gibt sich bei der Frau von gegenüber als Schriftsteller aus, indem er Kostproben seiner Chefin als sein Werk ausgibt. …</p>
+            </div>
+        </article>
+</main>
+
+
+<ul class="seat-rows filler" aria-hidden="true"></ul>
+
+<nav class="seats">
+    <ul class="seat-rows">
+        <li><a href="spielzeiten.html">Spielzeiten</a></li>
+        <li><a href="vorschau.html">Vorschau</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="kino.html">Kino</a></li>
+        <li><a href="schafsuche.html">Schafsuche</a></li>
+        <li><a href="tickets.html">Tickets</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+</nav>
+
+<script src="seats.js"></script>
+
+</body>
+</html>

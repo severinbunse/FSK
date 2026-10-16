@@ -58,8 +58,9 @@
     /* colours of this version: black page, blue type, logos and lines */
     --bg: #000000;
     --fg: #508ef5;
-    /* grey for inactive things (calendar days, Kalender / Diese Woche) */
-    --pale: #a6a6a6;
+    /* white for inactive things (calendar days, Kalender / Diese Woche),
+       like the Home seat */
+    --pale: #ffffff;
 
     /* Bringhurst's type scale, extended above 72 (96, 120) for headlines:
        6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 60 72 96 120 */

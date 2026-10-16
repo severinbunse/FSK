@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK – Spielzeiten</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seats.css">
+<style type="text/css">
+
+    /* the days as seats, two in a row; a day's showtimes open under its row */
+    .days {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .days .seat {
+        height: var(--row);
+    }
+
+    .days .seat button {
+        display: block;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: calc((var(--row) - 0.609em + var(--seat-line)) / 2) 0 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        font-size: var(--size-60);
+        line-height: var(--leading-menu);
+        text-shadow: inherit;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    /* the open day reads white, like the Home seat */
+    .days .seat.open button {
+        color: white;
+    }
+
+    /* the open day's showtimes take up whole rows (set by the script),
+       so the seats after them stay in line with the six pages */
+    .days .day {
+        grid-column: 1 / -1;
+        display: none;
+        box-sizing: border-box;
+        padding-top: 4px;
+    }
+
+    .days .day.open {
+        display: block;
+    }
+
+    /* the date is already on the seat */
+    .days .day h3 {
+        display: none;
+    }
+
+    h3 {
+        margin: 0;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .day {
+        font-size: var(--size-60);
+        line-height: var(--leading-rows);
+    }
+
+    h3 {
+        font-size: var(--size-60);
+    }
+
+    .day ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    /* title ..... time, with the dots filling the gap */
+    .day li {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .day li span:last-child {
+        order: 2;
+    }
+
+    .day li::after {
+        content: "................................................................................................................................................................................................................................................................................................................................................................................................................";
+        order: 1;
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .day li {
+        cursor: pointer;
+    }
+
+    /* image + short text that opens under a screening */
+    .day .info {
+        display: block;
+        cursor: auto;
+        margin: 8px 0 24px;
+    }
+
+    .day .info::after {
+        content: none;
+    }
+
+</style>
+</head>
+<body class="page">
+
+<h1 class="screen"><a href="index.html">Spielzeiten</a></h1>
+
+
+<main>
+
+    <section class="day" id="d-2026-09-24">
+        <h3>Do. 24.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-25">
+        <h3>Fr. 25.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-26">
+        <h3>Sa. 26.9</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>13:00</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
+            <li><span>The North</span><span>15:15</span></li>
+            <li><span>Wolves</span><span>15:30</span></li>
+            <li><span>Wolken Über Lützerath</span><span>17:30</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-27">
+        <h3>So. 27.9</h3>
+        <ul>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>13:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>13:45</span></li>
+            <li><span>The North</span><span>15:15</span></li>
+            <li><span>Wolves</span><span>16:15</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Wolken Über Lützerath</span><span>18:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-28">
+        <h3>Mo. 28.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-29">
+        <h3>Di. 29.9</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>17:30</span></li>
+            <li><span>Ich Verstehe Ihren Unmut</span><span>18:00</span></li>
+            <li><span>The North</span><span>20:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+    <section class="day" id="d-2026-09-30">
+        <h3>Mi. 30.9</h3>
+        <ul>
+            <li><span>Rose</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>The North</span><span>19:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+
+    <section class="day" id="d-2026-10-01">
+        <h3>Do. 1.10</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>17:45</span></li>
+            <li><span>Rose</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>19:45</span></li>
+            <li><span>The North</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-02">
+        <h3>Fr. 2.10</h3>
+        <ul>
+            <li><span>The North</span><span>17:45</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:00</span></li>
+            <li><span>Rose</span><span>19:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-03">
+        <h3>Sa. 3.10</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>13:00</span></li>
+            <li><span>Wolken Über Lützerath</span><span>13:15</span></li>
+            <li><span>Eagles Of The Republic</span><span>15:15</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>15:30</span></li>
+            <li><span>Rose</span><span>17:30</span></li>
+            <li><span>Wolves</span><span>18:00</span></li>
+            <li><span>The North</span><span>20:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-04">
+        <h3>So. 4.10</h3>
+        <ul>
+            <li><span>Wolves</span><span>13:15</span></li>
+            <li><span>Rose</span><span>13:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>15:15</span></li>
+            <li><span>Was An Empfindsamkeit Bleibt</span><span>16:15</span></li>
+            <li><span>The North</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>18:15</span></li>
+            <li><span>Wolken Über Lützerath</span><span>20:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-05">
+        <h3>Mo. 5.10</h3>
+        <ul>
+            <li><span>Eagles Of The Republic</span><span>17:45</span></li>
+            <li><span>The North</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>19:45</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-06">
+        <h3>Di. 6.10</h3>
+        <ul>
+            <li><span>Mauern Aus Sand</span><span>17:30</span></li>
+            <li><span>Ich Verstehe Ihren Unmut</span><span>18:00</span></li>
+            <li><span>Eagles Of The Republic</span><span>20:00</span></li>
+            <li><span>The North</span><span>20:30</span></li>
+        </ul>
+    </section>
+
+    <section class="day" id="d-2026-10-07">
+        <h3>Mi. 7.10</h3>
+        <ul>
+            <li><span>The North</span><span>17:45</span></li>
+            <li><span>Eagles Of The Republic</span><span>18:00</span></li>
+            <li><span>Mauern Aus Sand</span><span>19:45</span></li>
+            <li><span>Rose</span><span>20:30</span></li>
+        </ul>
+    </section>
+</main>
+
+<footer class="site-footer text">
+    <a href="index.html"><img src="../images/logo_fsk_kino_blue.png" alt="fsk Kino" width="200"></a>
+    <p>Segitzdamm 2<br>10969 Berlin<br>Deutschland</p>
+    <p>Tel: <a href="tel:+49306142464">030 6142464</a><br>Vorbestellungen tgl. 12–22 Uhr<br>Fax: 030 6159185<br>E-Mail: <a href="mailto:post@fsk-kino.de">post@fsk-kino.de</a></p>
+    <p><a href="http://www.europa-cinemas.org/">Europa Cinemas</a> · <a href="https://mastodon.berlin/@fskkino">Mastodon</a><br><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a><br>© 2026 fsk Kino &amp; Peripher Filmverleih GmbH<br><a href="kino.html#newsletter">Zum Newsletter!</a></p>
+</footer>
+
+<script>
+    // from the film pages in Current Content/posts/de: director, credits and the opening of the synopsis
+    const films = {
+        'Rose': {
+            img: 'rose.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3473205031',
+            by: 'Ein Film von Markus Schleinzer',
+            credits: 'DE/AT 2026, 93 Min., Deutsch OmeU',
+            text: '<em>Rose</em> war der Film aus dem Wettbewerb der diesjährigen Berlinale, über den wohl im positiven Sinn am meisten gesprochen wurde, und das nicht nur wegen der verdient mit dem Silbernen Bären auszeichneten Hauptdarstellerin Sandra Hüller. Die dritte Regiearbeit des österreichischen Schauspielers und Casting-Direktors Markus Schleinzer ist zugänglicher als die beiden vorherigen Filme <em>Michael</em> und <em>Angelo</em>, aber immer noch faszinierend eigen. …',
+        },
+        'The North': {
+            img: 'thenorth.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3496829000',
+            by: 'Ein Film von Bart Schrijver',
+            credits: 'NL 2025, 130 Min., engl./niederländische OmU',
+            text: 'Ein Muss für Schottland-(insbesondere-Highlands)-Sehnsüchtige, Wanderbegeisterte, alle, die ruhige Filme oder großartige Landschaften auf großer Leinwand sehen möchten oder das Drama zweier Freunde, die sich wiederfinden wollen. Chris und Lluis befinden sich nach zehn Jahren der Trennung mit Rucksäcken bepackt auf einem 600km langen Wandertrail durch den Norden Schottlands zum Cape Wrath, dem nordwestlichsten Punkt des Festlandes. …',
+        },
+        'Was An Empfindsamkeit Bleibt': {
+            img: 'Wasanempfindsamkeitbleibt.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3467505070',
+            by: 'Ein Film von Daniela Magnani Hüller',
+            credits: 'DE 2026, 91 Min., deutsch portugiesische OmU, am 14.5. mit englischen Untertiteln',
+            text: 'Regisseurin Daniela Magnani Hüller hat vor 14 Jahren einen Femizidversuch durch einen damaligen Mitschüler überlebt. In ihrem Dokumentarfilm nähert sie sich der Tat und ihrer Reflexion über die Tat in einer fragmentarischen Erzählung. Vor allem spricht sie mit den Menschen, deren Handeln/Nicht-Handeln damals für sie eine wichtige Rolle gespielt hat. …',
+        },
+        'Eagles Of The Republic': {
+            img: 'eaglesoftherepublic1.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3491929210',
+            by: 'Ein Film von Tarik Saleh',
+            credits: 'SE/DK/FI/FR/DE 2026, 125 Min., arabische OmU',
+            text: 'Tarik Salehs neuer Film <em>Eagles of the Republic</em> beginnt mit handgezeichneten Postern aus der großen Zeit des ägyptischen Kinos. Das ist nicht nur Nostalgie, sondern auch ein Statement, ein persönliches, politisches und ästhetisches. …',
+        },
+        'Wolves': {
+            img: 'wolves.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3496829582',
+            by: 'Ein Film von Jonas Ulrich',
+            credits: 'CH 2025, 96 Min., engl, schweizerdeutsch OmU',
+            text: 'Mittendrin in der Black-Metal-Szene ist Regisseur Jonas Ulrich mit seinem Film <em>Wolves</em>, aber nicht nur das. Beim Max Ophüls-Preis in Saarbrücken erhielt er den Preis der Jugendjury und den der Filmkritik.',
+        },
+        'Wolken Über Lützerath': {
+            img: 'wolkenueberluetzerath.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3200509648',
+            by: 'Ein Film von Lukas Reiter',
+            credits: 'DE 2025, 110 Min., deutsche OmeU',
+            text: 'In Lützerath verläuft für Blinker, Ronni und die Bundestagsabgeordnete Kathrin Henneberger die 1,5 Grad-Grenze. Auf unterschiedliche Art kämpfen sie für den Erhalt des Dorfes im rheinischen Braunkohlerevier. Während Blinker auf Barrikaden setzt und Ronni sich auf die Medienstrategie der Besetzung konzentriert, versucht die örtliche Grünen-Abgeordnete den Protest zu unterstützen und muss eine schwere Niederlage einstecken, als die Ampelkoalition dem Kohlekompromiss mit RWE zustimmen – der zwar den Ausstieg bis 2030 festhält, aber Lützerath dem Konzern opfert. …',
+        },
+        'Mauern Aus Sand': {
+            img: 'MauernAusSand.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3497008867',
+            by: 'Ein Film von Čejen Černić Čanak',
+            credits: 'HR/LT 2025, 88 Min., kroatische Originalfassung mit deutschen Untertiteln',
+            text: 'Die Mauern aus Sand bestehen aus Sandsäcken, die dem Flussdeich helfen sollen, das gefährliche jährliche Hochwasser zu bannen. Wie alle aus dem Dorf hilft auch Marko, ein sportlicher, hilfsbereiter Automechaniker, beim Schleppen und Stapeln. Die Zukunft dieses beliebten jungen Mannes scheint in geordnete Bahnen zu führen, mit attraktiver Freundin, sicherer Ausbildung, eingebettet in Dorfgemeinschaft und Familie – bis sein Kindheitsfreund Slaven plötzlich aus Berlin heimkehrt, weil er seinen Vater beerdigen muss. …',
+        },
+        'Ich Verstehe Ihren Unmut': {
+            img: 'ichversteheihrenunmut.webp',
+            tickets: 'https://booking.cinetixx.de/frontend/#/movie/2278359999/3460838287',
+            by: 'Ein Film von Kilian Armando Friedrich',
+            credits: 'DE 2026, 93 Min., Deutsch, Kroatisch, Bosnisch, Türkisch OmU',
+            text: 'Objektleiterin – hört sich gut an, bedeutet aber in einer Branche, in der die Beschäftigten für harte Arbeit zu schlechten Zeiten mit wenig Anerkennung einen Lohn im unteren Lohnsektor bekommen, nur mehr Verantwortung für ein kaum mehr Geld. Heike ist zertifizierte Objektleiterin in der Reinigungsbranche, derzeit zuständig für eine Einkaufsmall, einen Kindergarten, ein Seniorenheim und eine Baustelle. …',
+        },
+    };
+
+    // the days as seats, two in a row: tap one to open its showtimes under the
+    // row, tap it again to close them. One day is open at a time; to begin
+    // with today, or the first day if today has no screenings.
+    const main = document.querySelector('main');
+    const days = [...document.querySelectorAll('.day')];
+    const seatFor = new Map();
+    const grid = document.createElement('div');
+    grid.className = 'days';
+
+    for (let i = 0; i < days.length; i += 2) {
+        const pair = days.slice(i, i + 2);
+        pair.forEach((day, j) => {
+            const seat = document.createElement('div');
+            seat.className = j ? 'seat right' : 'seat';
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = day.querySelector('h3').textContent;
+            button.setAttribute('aria-expanded', 'false');
+            button.addEventListener('click', () => openDay(day, true));
+            seat.append(button);
+            grid.append(seat);
+            seatFor.set(day, seat);
+        });
+        // the showtimes of both days sit under their row, hidden until opened
+        grid.append(...pair);
+    }
+    main.prepend(grid);
+
+    function openDay(day, tapped) {
+        const opening = !day.classList.contains('open');
+        // keep a tapped seat where it is on screen
+        const seat = seatFor.get(day);
+        const top = seat.getBoundingClientRect().top;
+        days.forEach(d => {
+            const open = opening && d === day;
+            d.classList.toggle('open', open);
+            seatFor.get(d).classList.toggle('open', open);
+            seatFor.get(d).firstChild.setAttribute('aria-expanded', open);
+        });
+        align();
+        if (!tapped) return;
+        const shift = seat.getBoundingClientRect().top - top;
+        document.body.scrollTop += shift;
+        document.documentElement.scrollTop += shift;
+    }
+
+    // line the rows of days up with the rows of the six pages at the bottom:
+    // the open day's showtimes are made a whole number of rows tall (with at
+    // least 12px under them), and the space under the screen grows just enough
+    // that the first row of days sits on the same grid as the six pages
+    function align() {
+        // the six pages come after this script, so wait for them on first load
+        const seats = document.querySelector('.seats');
+        if (!seats) return;
+        const row = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--row'));
+        const open = days.find(d => d.classList.contains('open'));
+        if (open) {
+            open.style.minHeight = '';
+            open.style.minHeight = Math.ceil((open.offsetHeight + 12) / row) * row + 'px';
+        }
+        grid.style.marginTop = '';
+        const body = document.body;
+        const top = grid.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop;
+        const menuTop = body.clientHeight - parseFloat(getComputedStyle(seats).paddingBottom) - seats.querySelector('ul').offsetHeight;
+        const gap = parseFloat(getComputedStyle(document.querySelector('h1.screen')).marginBottom);
+        grid.style.marginTop = gap + ((menuTop - top) % row + row) % row + 'px';
+    }
+    document.addEventListener('DOMContentLoaded', align);
+    window.addEventListener('resize', align);
+    document.fonts.ready.then(align);
+
+    const pad = n => String(n).padStart(2, '0');
+    const now = new Date();
+    const today = document.getElementById(`d-${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`);
+    openDay(today || days[0]);
+
+    // fetch the stills in the background once the page has loaded, so they show instantly on tap
+    window.addEventListener('load', () => {
+        Object.values(films).forEach(film => {
+            new Image().src = `../images/films/${film.img}`;
+        });
+    });
+
+    // tap a screening to open its image and text underneath, tap again to close.
+    // Only one is open at a time: opening a new one closes the one before.
+    document.querySelectorAll('.day li').forEach(li => {
+        li.addEventListener('click', () => {
+            const next = li.nextElementSibling;
+            if (next && next.classList.contains('info')) {
+                next.remove();
+                align();
+                return;
+            }
+            const title = li.firstElementChild.textContent;
+            const film = films[title];
+            if (!film) return;
+
+            // close any open one, keeping the tapped row where it is on screen
+            const top = li.getBoundingClientRect().top;
+            document.querySelectorAll('.day .info').forEach(open => open.remove());
+            const shift = li.getBoundingClientRect().top - top;
+            document.body.scrollTop += shift;
+            document.documentElement.scrollTop += shift;
+
+            const info = document.createElement('li');
+            info.className = 'info';
+            info.innerHTML = `<img src="../images/films/${film.img}" alt="${title}"><p class="credits">${film.by}<br>${film.credits}</p><p>${film.text}</p>`
+                + `<p><a href="${film.tickets}">Tickets &amp; Termine</a></p>`;
+            li.after(info);
+            align();
+            info.querySelector('img').addEventListener('load', align);
+        });
+    });
+</script>
+
+
+<ul class="seat-rows filler" aria-hidden="true"></ul>
+
+<nav class="seats">
+    <ul class="seat-rows">
+        <li><a href="spielzeiten.html">Spielzeiten</a></li>
+        <li><a href="vorschau.html">Vorschau</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="kino.html">Kino</a></li>
+        <li><a href="schafsuche.html">Schafsuche</a></li>
+        <li><a href="tickets.html">Tickets</a></li>
+    </ul>
+</nav>
+
+<script src="seats.js"></script>
+
+</body>
+</html>
