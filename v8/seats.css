@@ -1,0 +1,145 @@
+/* Every page is built the same way: the screen (blue panel) with the page name,
+   the content, then rows of two cinema seats. The bottom three rows hold the
+   six pages and stay at the bottom of the screen. When the page is shorter than
+   the screen, rows of empty seats fill the space above them; when it is longer
+   there are none, and the page scrolls behind the six pages.
+   Used together with seats.js. */
+
+:root {
+    --seat-radius: 20px;
+    --seat-line: 2px;
+    /* each row is at least this tall; with empty rows, all rows are stretched
+       a little so the last one ends at the bottom of the screen (by seats.js) */
+    --row-min: 60px;
+    --row: var(--row-min);
+    /* under the last row */
+    --seats-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* The page scrolls inside the body rather than the whole window. That way
+   Safari keeps its address bar and toolbar still, and the seats don't ride
+   up and down with them. */
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    /* the same margin above the screen as at the sides; at the end, room for
+       the six pages so nothing stays hidden behind them */
+    padding: calc(3vw + env(safe-area-inset-top)) 3vw calc(3 * var(--row) + var(--seats-bottom));
+}
+
+/* the screen: blue panel with the page name in white,
+   or on the homepage the vertical logo */
+h1.screen {
+    position: relative;
+    aspect-ratio: 15 / 8;
+    margin: 0 0 12px;
+    background: var(--fg);
+    color: white;
+    font-size: var(--size-96);
+    line-height: var(--leading-menu);
+    font-weight: normal;
+    text-align: center;
+}
+
+.screen a {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* the logo file is white with its black shadow already in it */
+.screen img {
+    position: absolute;
+    left: 6%;
+    top: 11%;
+    height: 78%;
+    width: auto;
+}
+
+/* --- the seats --- */
+
+.seat-rows {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: var(--row);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* one seat: a line over the top that stops right after the rounded
+   corners, with a black copy of the line as shadow */
+.seat-rows li {
+    position: relative;
+    isolation: isolate;
+}
+
+/* the two seats in a row overlap by one line width, so their inner ends
+   meet and the two curves share one line in the middle */
+.seat-rows li:nth-child(even) {
+    margin-left: calc(-1 * var(--seat-line));
+}
+
+.seat-rows li::before,
+.seat-rows li::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--seat-line) solid var(--fg);
+    border-bottom: 0;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    pointer-events: none;
+}
+
+.seat-rows li::before {
+    z-index: 1;
+}
+
+.seat-rows li::after {
+    border-color: black;
+    transform: translate(2px, 2px);
+}
+
+/* the empty rows keep a little space from the content above */
+.filler {
+    margin-top: 12px;
+}
+
+/* the six pages, fixed at the bottom; the page scrolls away behind them */
+.seats {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    padding: 0 3vw var(--seats-bottom);
+    /* covers what scrolls behind, except above the rounded corners */
+    background: linear-gradient(to bottom, transparent var(--seat-radius), var(--bg) var(--seat-radius));
+}
+
+.seats li {
+    background: var(--bg);
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+}
+
+/* the word fills the seat, so the whole seat can be tapped; it sits
+   optically centred under the seat line */
+.seats a {
+    display: block;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
+    font-size: var(--size-60);
+    line-height: var(--leading-menu);
+    text-align: center;
+}
