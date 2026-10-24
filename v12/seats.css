@@ -18,9 +18,9 @@
     --row-list: calc(var(--row) * 3 / 4);
     /* how many rows of pages at the bottom */
     --menu-rows: 3;
-    /* under the last row: 12px, or the iPhone's space for the home bar
-       if that is bigger (not both added together) */
-    --seats-bottom: max(12px, env(safe-area-inset-bottom));
+    /* under the last row: 12px, or on the iPhone a little more, reaching
+       just into its space for the home bar (the words stay clear of it) */
+    --seats-bottom: max(12px, calc(env(safe-area-inset-bottom) - 16px));
     /* space above every divider: between films, parts and headings */
     --divider-gap: 36px;
 }
