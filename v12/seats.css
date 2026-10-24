@@ -123,6 +123,8 @@ h1.screen {
 .seat-rows li::before,
 .seat::before {
     z-index: 1;
+    /* a soft blue glow on the inside of the line */
+    box-shadow: inset 0 0 12px color-mix(in srgb, var(--fg) 55%, transparent);
 }
 
 .seat-rows li::after,
