@@ -1,0 +1,394 @@
+/* Every page is built the same way: the screen (blue panel) with the page name,
+   the content, then rows of two cinema seats. The bottom three rows hold the
+   pages and stay at the bottom of the screen (Impressum and Datenschutz are
+   linked from Kontakt). When the page is shorter than
+   the screen, rows of empty seats fill the space above them; when it is longer
+   there are none, and the page scrolls behind the six pages.
+   Used together with seats.js. */
+
+:root {
+    --seat-radius: 20px;
+    --seat-line: 2px;
+    /* the rows with the six pages, on every page */
+    --row: 60px;
+    /* the empty rows above them: the same, so every row is in line */
+    --row-empty: var(--row);
+    /* the lines of a list of films (showtimes, Heute): three quarters of a
+       row, so every four films fill exactly three rows */
+    --row-list: calc(var(--row) * 3 / 4);
+    /* how many rows of pages at the bottom */
+    --menu-rows: 3;
+    /* under the last row: 12px, or the iPhone's space for the home bar
+       if that is bigger (not both added together) */
+    --seats-bottom: max(12px, env(safe-area-inset-bottom));
+    /* space above every divider: between films, parts and headings */
+    --divider-gap: 36px;
+}
+
+/* The page scrolls inside the body rather than the whole window. That way
+   Safari keeps its address bar and toolbar still, and the seats don't ride
+   up and down with them. */
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    /* the same margin above the screen as at the sides; at the end, room for
+       the six pages so nothing stays hidden behind them */
+    padding: calc(3vw + env(safe-area-inset-top)) 3vw calc(var(--menu-rows) * var(--row) + var(--seats-bottom));
+}
+
+/* the screen: blue panel with the page name in white,
+   or on the homepage the vertical logo; the same size on every page, so the
+   rows of seats under it are in the same place on every page */
+h1.screen {
+    position: relative;
+    aspect-ratio: 2 / 1;
+    margin: 0 0 12px;
+    background: var(--fg);
+    color: white;
+    font-size: var(--size-96);
+    line-height: var(--leading-menu);
+    font-weight: normal;
+    text-align: center;
+}
+
+.screen a {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* the other pages are set like the credits of a film: everything under
+   the screen centred */
+.page main {
+    text-align: center;
+}
+
+.page main .text ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+/* the logo file is white with its black shadow already in it */
+.screen img {
+    position: absolute;
+    left: 6%;
+    top: 11%;
+    height: 78%;
+    width: auto;
+}
+
+/* --- the seats --- */
+
+.seat-rows {
+    display: grid;
+    /* two equal halves, however long the words in them */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: var(--row);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* one seat (in a row of seats, or anything else with class="seat"):
+   a line over the top that stops right after the rounded
+   corners, with a black copy of the line as shadow */
+.seat-rows li,
+.seat {
+    position: relative;
+    isolation: isolate;
+}
+
+/* the two seats in a row overlap by one line width, so their inner ends
+   meet and the two curves share one line in the middle */
+.seat-rows li:nth-child(even),
+.seat.right {
+    margin-left: calc(-1 * var(--seat-line));
+}
+
+.seat-rows li::before,
+.seat-rows li::after,
+.seat::before,
+.seat::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--seat-line) solid var(--fg);
+    border-bottom: 0;
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    mask-image: linear-gradient(to bottom, black var(--seat-radius), transparent var(--seat-radius));
+    pointer-events: none;
+}
+
+.seat-rows li::before,
+.seat::before {
+    z-index: 1;
+}
+
+.seat-rows li::after,
+.seat::after {
+    border-color: black;
+    transform: translate(2px, 2px);
+}
+
+/* the empty rows keep at least this space from the content above
+   (seats.js adds what's left over when the rows don't fill it exactly) */
+.filler {
+    margin-top: 12px;
+    grid-auto-rows: var(--row-empty);
+}
+
+/* the six pages, fixed at the bottom; the page scrolls away behind them */
+.seats {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    padding: 0 3vw var(--seats-bottom);
+    /* covers what scrolls behind, except above the rounded corners */
+    background: linear-gradient(to bottom, transparent var(--seat-radius), var(--bg) var(--seat-radius));
+}
+
+.seats li {
+    background: var(--bg);
+    border-radius: var(--seat-radius) var(--seat-radius) 0 0;
+}
+
+/* the word fills the seat, so the whole seat can be tapped; it sits
+   optically centred under the seat line */
+.seats a {
+    display: block;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
+    font-size: var(--size-list);
+    line-height: var(--leading-menu);
+    text-align: center;
+    /* words too wide for the seat are set smaller by seats.js */
+    white-space: nowrap;
+}
+
+/* on each page, its own seat reads Home */
+.seats a.home {
+    color: white;
+}
+
+/* --- seats that open things (class="opens") ---
+   sections become seats, two in a row; a section opens under its row */
+
+.opens {
+    display: grid;
+    /* two equal halves, however long the words in them */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.opens .seat {
+    height: var(--row);
+}
+
+.opens .seat button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: calc((var(--row) - 0.609em + var(--seat-line)) / 2) 0 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: var(--size-list);
+    line-height: var(--leading-menu);
+    text-shadow: inherit;
+    text-align: center;
+    /* words too wide for the seat are set smaller by seats.js */
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* the open one reads white, like the Home seat */
+.opens .seat.open button {
+    color: white;
+}
+
+/* an open section is made whole rows tall by seats.js, so the seats after it
+   stay in line with the pages at the bottom */
+.opens > section,
+.opens > article {
+    grid-column: 1 / -1;
+    display: none;
+    box-sizing: border-box;
+    /* at least this much space under what's in it */
+    padding: 4px 0 12px;
+}
+
+.opens > .open {
+    display: block;
+}
+
+/* --- seats with two lines (class="seat-rows tall") ---
+   two rows high: a word or name, and under it a price or number */
+
+.seat-rows.tall {
+    grid-auto-rows: calc(2 * var(--row));
+}
+
+.seat-rows.tall li {
+    padding-top: calc((var(--row) - 0.609em + var(--seat-line)) / 2);
+    box-sizing: border-box;
+    font-size: var(--size-list);
+    line-height: var(--leading-menu);
+    text-align: center;
+}
+
+.seat-rows.tall li span {
+    display: block;
+    /* words too wide for the seat are set smaller by seats.js */
+    white-space: nowrap;
+}
+
+.seat-rows.tall li span + span {
+    margin-top: calc(var(--row) - 0.78em);
+}
+
+/* --- seats you can choose (class="seat-rows choose") ---
+   tap to take a seat: it turns white; tap again to give it back */
+
+/* (not indented like the lists in reading text) */
+.text .seat-rows.choose {
+    /* the seats keep the full width, outside the margin of the text */
+    margin: 0 calc(-1 * var(--text-inset)) 0.8em;
+    padding: 0;
+}
+
+.seat-rows.choose button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0 6px;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-family: 'SFMoviePoster', sans-serif;
+    font-size: var(--size-36);
+    line-height: var(--leading-menu);
+    text-shadow: var(--shadow);
+    text-align: center;
+    cursor: pointer;
+}
+
+.seat-rows.choose button[aria-pressed="true"] {
+    color: white;
+}
+
+/* --- a pair of seats as a divider (class="divider") ---
+   used the way a line would be: above each film on Vorschau, each part of
+   Kino and Tickets, each heading on Impressum and Datenschutz, and the text
+   on Kontakt and Schafsuche; what follows starts just under the curves */
+
+.divider {
+    position: relative;
+    height: calc(var(--seat-radius) + var(--seat-line) + 8px);
+}
+
+/* the two seats reach half a line width past the middle, so they overlap
+   and their curves share one line */
+.divider .seat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(50% + var(--seat-line) / 2);
+    height: var(--seat-radius);
+    margin: 0;
+}
+
+.divider .seat.right {
+    left: calc(50% - var(--seat-line) / 2);
+}
+
+/* a part of a page (Kino, Tickets): a divider, its heading, its text */
+.part {
+    margin: 0 0 var(--divider-gap);
+}
+
+.page .part h2 {
+    margin-top: 0;
+}
+
+/* a divider inside reading text (Impressum, Datenschutz, Kontakt) keeps
+   the full width, outside the margin of the text */
+.text .divider {
+    margin: var(--divider-gap) calc(-1 * var(--text-inset)) 0;
+}
+
+.text > .divider:first-child {
+    margin-top: 0;
+}
+
+.text .divider + h3 {
+    margin-top: 0;
+}
+
+/* --- going from page to page ---
+   like one shot cutting to the next on the screen in the cinema: the page
+   you leave fades to black, all of it but the words of the six pages,
+   then the new one fades in. The words stay; only the one that changes
+   (Home) switches at once */
+@view-transition {
+    navigation: auto;
+}
+
+.seats li:nth-child(1) a { view-transition-name: menu-1; }
+.seats li:nth-child(2) a { view-transition-name: menu-2; }
+.seats li:nth-child(3) a { view-transition-name: menu-3; }
+.seats li:nth-child(4) a { view-transition-name: menu-4; }
+.seats li:nth-child(5) a { view-transition-name: menu-5; }
+.seats li:nth-child(6) a { view-transition-name: menu-6; }
+
+.seats a {
+    view-transition-class: menu-word;
+}
+
+::view-transition-group(*.menu-word),
+::view-transition-new(*.menu-word) {
+    animation: none;
+}
+
+::view-transition-old(*.menu-word) {
+    display: none;
+}
+
+::view-transition-old(root) {
+    animation: fade-out 0.25s ease-in both;
+}
+
+::view-transition-new(root) {
+    animation: fade-in 0.25s 0.25s ease-out both;
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none;
+    }
+}

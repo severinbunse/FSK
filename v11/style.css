@@ -1,0 +1,224 @@
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster.woff2') format('woff2');
+    /* (no stand-in font while it loads, so nothing shows in the wrong one) */
+    font-display: block;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster_oblique.woff2') format('woff2');
+    font-display: block;
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster_bold.woff2') format('woff2');
+    font-display: block;
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePoster';
+    src: url('../fonts/sf_movie_poster_bold_oblique.woff2') format('woff2');
+    font-display: block;
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed.woff2') format('woff2');
+    font-display: block;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed_oblique.woff2') format('woff2');
+    font-display: block;
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed_bold.woff2') format('woff2');
+    font-display: block;
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMoviePosterCondensed';
+    src: url('../fonts/sf_movie_poster_condensed_bold_oblique.woff2') format('woff2');
+    font-display: block;
+    font-weight: bold;
+    font-style: italic;
+}
+
+:root {
+    /* colours of this version: black page, blue type, logos and lines */
+    --bg: #000000;
+    --fg: #508ef5;
+    /* white for inactive things (calendar days, Kalender / Diese Woche),
+       like the Home seat */
+    --pale: #ffffff;
+
+    /* Bringhurst's type scale, extended above 72 (96, 120) for headlines,
+       and with 54 between 48 and 60 for the lists:
+       6 7 8 9 10 11 12 14 16 18 21 24 30 36 48 54 60 72 96 120 */
+    --size-18: 18px;
+    --size-36: 36px;
+    --size-48: 48px;
+    --size-54: 54px;
+    --size-60: 60px;
+    /* everything that was 60: the words in the seats, the lists and the
+       headings (showtimes, film titles, prices, section headings) */
+    --size-list: var(--size-54);
+    --size-72: 72px;
+    --size-96: 96px;
+    --size-120: 120px;
+    /* fixed offset so the shadow is identical on every size of text */
+    /* the shadow is built from two copies, 1px and 2px away, so it stays solid:
+       with a single copy 2px away, the white shows through between thin
+       strokes and their shadow */
+    --shadow: 1px 1px 0 black, 2px 2px 0 black;
+    /* line heights: menu, Movie Poster headings and lists, reading text */
+    --leading-menu: 0.78;
+    --leading-display: 0.92;
+    /* showtime rows: between the tight menu spacing and the display spacing */
+    --leading-rows: 0.85;
+    --leading-text: 1.3;
+    /* reading text, under the Movie Poster headings */
+    --font-text: Arial, Helvetica, sans-serif;
+    /* text that runs across the page keeps this far from the sides, so it
+       starts and ends where the seat curves become straight */
+    --text-inset: var(--seat-radius);
+}
+
+html, body {
+    margin: 0;
+    font-family: 'SFMoviePoster', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    text-shadow: var(--shadow);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* --- content pages (the screen, the page padding and the seats are in seats.css) --- */
+
+.page h2 {
+    margin: 6vw 0 12px;
+    font-size: var(--size-list);
+    line-height: var(--leading-display);
+    font-weight: normal;
+    text-align: center;
+}
+
+/* whatever comes first under the screen follows closely */
+.page main > :first-child {
+    margin-top: 0;
+}
+
+/* reading text */
+.text {
+    padding-left: var(--text-inset);
+    padding-right: var(--text-inset);
+    font-family: var(--font-text);
+    font-size: var(--size-18);
+    line-height: var(--leading-text);
+}
+
+.text h3 {
+    margin: 1.4em 0 0.2em;
+    font-size: inherit;
+    font-weight: bold;
+}
+
+.text p {
+    margin: 0 0 0.8em;
+}
+
+.text ul {
+    margin: 0 0 0.8em;
+    padding-left: 1.2em;
+}
+
+.text a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+/* title ..... price, with the dots filling the gap */
+.leaders,
+.text .leaders {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.leaders li {
+    display: flex;
+    align-items: baseline;
+}
+
+.leaders li span:last-child {
+    order: 2;
+    padding-left: 0.1em;
+    white-space: nowrap;
+}
+
+.leaders li::after {
+    content: "........................................................................................................................................................................................................................................................................................................................................................................................................";
+    order: 1;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* price list in Movie Poster */
+.leaders.large {
+    margin-bottom: 12px;
+    padding-left: var(--text-inset);
+    padding-right: var(--text-inset);
+    font-size: var(--size-list);
+    line-height: var(--leading-display);
+}
+
+
+/* image + short text that opens under a film */
+.info img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.info .credits {
+    font-style: italic;
+}
+
+.info p {
+    margin: 0.8em 0 0;
+    padding-left: var(--text-inset);
+    padding-right: var(--text-inset);
+    font-family: var(--font-text);
+    font-size: var(--size-18);
+    line-height: var(--leading-text);
+}
+
+.info a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+

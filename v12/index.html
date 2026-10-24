@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FSK</title>
+    <!-- the Movie Poster font first, so a page fading in shows in it -->
+    <link rel="preload" href="../fonts/sf_movie_poster.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seats.css">
+<style type="text/css">
+
+    /* the one taken seat, Heute: it opens today's films,
+       title ..... time, like the rows on Spielzeiten */
+    .heute ul {
+        margin: 0;
+        padding: 0 var(--text-inset);
+        list-style: none;
+        font-size: var(--size-list);
+        line-height: var(--row-list);
+    }
+
+    /* Heute is made whole rows tall (seats.js); the films sit at the bottom
+       of that space, and whatever is left over (when the number of films
+       isn't a multiple of four) goes between Heute and the first film */
+    .opens > .heute {
+        padding: 0;
+    }
+
+    .opens > .heute.open {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .heute a {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .heute a span:last-child {
+        order: 2;
+        white-space: nowrap;
+    }
+
+    .heute a::after {
+        content: "........................................................................................................................................................................................................";
+        order: 1;
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    /* the empty seats follow straight on from the Heute row */
+    .filler {
+        margin-top: 0;
+    }
+
+</style>
+</head>
+<body>
+
+<h1 class="screen"><a href="index.html"><img src="../images/logo_vertical.png" alt="fsk"></a></h1>
+
+<main>
+    <div class="opens">
+        <section class="heute" id="heute" data-seat="Heute">
+            <ul>
+            <li><a href="spielzeiten.html#d-2026-09-24"><span>Rose</span><span>17:45</span></a></li>
+            <li><a href="spielzeiten.html#d-2026-09-24"><span>Eagles Of The Republic</span><span>18:00</span></a></li>
+            <li><a href="spielzeiten.html#d-2026-09-24"><span>The North</span><span>19:45</span></a></li>
+            <li><a href="spielzeiten.html#d-2026-09-24"><span>Mauern Aus Sand</span><span>20:30</span></a></li>
+            </ul>
+        </section>
+    </div>
+</main>
+
+<ul class="seat-rows filler" aria-hidden="true"></ul>
+
+<nav class="seats">
+    <ul class="seat-rows">
+        <li><a href="spielzeiten.html">Spielzeiten</a></li>
+        <li><a href="vorschau.html">Vorschau</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="kino.html">Kino</a></li>
+        <li><a href="schafsuche.html">Schafsuche</a></li>
+        <li><a href="tickets.html">Tickets</a></li>
+    </ul>
+</nav>
+
+<script src="seats.js"></script>
+
+</body>
+</html>
