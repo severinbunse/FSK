@@ -25,17 +25,9 @@
     --divider-gap: 36px;
 }
 
-/* The page scrolls inside the body rather than the whole window. That way
-   Safari keeps its address bar and toolbar still, and the seats don't ride
-   up and down with them. */
-html {
-    height: 100%;
-    overflow: hidden;
-}
-
+/* The whole page scrolls, so on the iPhone it goes on behind Safari's bars
+   and they can shrink out of the way */
 body {
-    height: 100%;
-    overflow-y: auto;
     box-sizing: border-box;
     /* the same margin above the screen as at the sides; at the end, room for
        the six pages so nothing stays hidden behind them */

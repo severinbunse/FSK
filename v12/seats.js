@@ -18,8 +18,11 @@
     const pageRows = seats.querySelectorAll('li').length / 2;
 
     const cssValue = name => parseFloat(getComputedStyle(root).getPropertyValue(name));
-    // the page scrolls inside the body, so measure from the body's top
-    const topOf = el => el.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop;
+    // measured from the top of the page, and against the height of the
+    // window (on the iPhone the one with Safari's bars showing, which stays
+    // the same while they shrink and grow)
+    const topOf = el => el.getBoundingClientRect().top - body.getBoundingClientRect().top;
+    const height = () => root.clientHeight;
 
     // --- Home ---
     const here = location.pathname.split('/').pop() || 'index.html';
@@ -84,7 +87,6 @@
         layout();
         if (!tapped) return;
         const shift = seat.getBoundingClientRect().top - top;
-        body.scrollTop += shift;
         root.scrollTop += shift;
     }
 
@@ -126,7 +128,7 @@
         const row = cssValue('--row');
         const usual = screen.offsetHeight;
         const gap = parseFloat(getComputedStyle(screen).marginBottom);
-        const space = body.clientHeight - topOf(screen) - gap - parseFloat(getComputedStyle(seats).paddingBottom);
+        const space = height() - topOf(screen) - gap - parseFloat(getComputedStyle(seats).paddingBottom);
         const rows = Math.round((space - usual) / row);
         screen.style.aspectRatio = 'auto';
         screen.style.height = space - rows * row + 'px';
@@ -144,7 +146,7 @@
                 section.style.minHeight = Math.ceil(section.offsetHeight / row) * row + 'px';
             }
         }));
-        const menuTop = body.clientHeight - parseFloat(getComputedStyle(seats).paddingBottom) - seats.querySelector('ul').offsetHeight;
+        const menuTop = height() - parseFloat(getComputedStyle(seats).paddingBottom) - seats.querySelector('ul').offsetHeight;
         // (rows inside an open section move with it, so they are left alone)
         document.querySelectorAll('main .opens, main .seat-rows').forEach(rows => {
             if (rows.parentElement.closest('.opens')) return;
@@ -166,7 +168,7 @@
         const empty = cssValue('--row-empty');
         const gap = parseFloat(getComputedStyle(filler).marginTop);
         const bottom = parseFloat(getComputedStyle(seats).paddingBottom);
-        const space = body.clientHeight - topOf(filler) - bottom - pageRows * row;
+        const space = height() - topOf(filler) - bottom - pageRows * row;
         // (the space above them counts too: under seats that end on the grid
         // of rows, they follow straight on; under anything else they keep
         // their gap)
@@ -183,7 +185,7 @@
             // a longer page ends with one row of them, in line with the
             // rows at the bottom
             rows = 1;
-            const menuTop = body.clientHeight - bottom - pageRows * row;
+            const menuTop = height() - bottom - pageRows * row;
             // (measured from where it would be without its usual margin)
             const top = topOf(filler) - gap;
             filler.style.marginTop = ((menuTop - top) % row + row) % row + 'px';
